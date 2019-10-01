@@ -8,8 +8,10 @@ if(isset($_POST['edit_sd']))
 	 $fullname=$_POST['fullname'];
 	 $email=$_POST['email'];
 	 $phone=$_POST['phone'];
+	 $identType=$_POST['identType'];
+	 $identNo=$_POST['identNo'];
 
-	 $object = $object->update_sd($fullname,$email,$phone,$id);
+	 $object = $object->update_sd($fullname,$email,$phone,$identType,$identNo,$id);
 }
 
 if (isset($_POST['edit_cat'])) {
@@ -29,11 +31,14 @@ if (isset($_POST['delete_product'])) {
 	$object = $object->delete_product($id);
 }
 
-if (isset($_POST['addCart'])) {
-	$quantity = $_POST['quantity'];
-	// $productID = $_POST['productID'];
-	// $custName = $_POST['custName'];
-	$object = $object->cart($quantity);
+if (isset($_POST['revorkUser'])) {
+	$id = $_POST['id'];
+	$object = $object->revorkUser($id);
+}
+
+if (isset($_POST['unrevorkUser'])) {
+	$id = $_POST['id'];
+	$object = $object->unrevorkUser($id);
 }
 
 ?>

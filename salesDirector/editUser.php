@@ -14,9 +14,9 @@ include('header.php');
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.php">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="sd.php">Manage Sale Directors</a>
+                                <li class="breadcrumb-item"><a href="manageUsers.php">Revenue Payers</a>
                                 </li>
-                                <li class="breadcrumb-item active">Add Sale Director
+                                <li class="breadcrumb-item active">Add Revenue Payers
                                 </li>
                             </ol>
                         </div>
@@ -42,13 +42,15 @@ include('header.php');
                                         <?php
                                             if(isset($_POST['btn_save']))
                                             {
-                                                $name = $_POST['fullname'];
+                                                $fullname = $_POST['fullname'];
                                                 $email = $_POST['email'];
                                                 $phone = $_POST['phone'];
-                                               $object->insertSd($name,$email,$phone);
+                                                $identificationType = $_POST['ident_type'];
+                                                $identificationNo = $_POST['ident_no'];
+                                               $object->insertUser($fullname,$email,$phone,$identificationNo,$identificationType);
                                             }
                                         ?>
-                                        <form class="form-horizontal" action="" method="post" novalidate>
+                                        <form class="form-horizontal" action="" method="post" novalidate enctype="multipart/form-data">
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-12">
                                                     <div class="form-group">
@@ -77,6 +79,37 @@ include('header.php');
                                                 </div>
 
                                                  <div class="col-lg-6 col-md-12">
+                                                    <div class="form-group">
+                                                        <h5>Identification type <span class="required">*</span></h5>
+                                                        <div class="controls">
+                                                            <select class="form-control mb-1" required data-validation-required-message="User Type is required"  id="iden" onchange="showme('plateno'. this)" name="ident_type">
+                                                                <option>Select User type</option>
+                                                                <option value="Driver">Driver</option>
+                                                                <option value="Shop Owner">Shop Owner</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6 col-md-12" id="plateno">
+                                                    <div class="form-group">
+                                                        <h5>Identification Number <span class="required">*</span></h5>
+                                                        <div class="controls">
+                                                            <input type="text" name="ident_no" class="form-control mb-1" required data-validation-required-message="Phone Number is required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6 col-md-12 hidden" id="shopno">
+                                                    <div class="form-group">
+                                                        <h5>Shop Number <span class="required">*</span></h5>
+                                                        <div class="controls">
+                                                            <input type="number" name="ShopNo" class="form-control mb-1" maxlength="11" required data-validation-required-message="Phone Number is required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                 <div class="col-lg-6 col-md-12">
                                                     <div class="text-right">
                                                         <button type="submit" name="btn_save" class="btn btn-success">Submit <i class="la la-thumbs-o-up position-right"></i></button>
                                                         <a href="categories" class="btn btn-danger">Cancel <i class="la la-close position-right"></i></a>
@@ -96,5 +129,6 @@ include('header.php');
         </div>
     </div>
     <!-- END: Content-->
+
 
     <?php include 'footer.php'; ?>

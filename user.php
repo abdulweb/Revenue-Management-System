@@ -1,10 +1,12 @@
 <?php
 session_start();
+error_reporting(0);
 /**
 * 
 */
 class user extends dbh
 {
+
 	
 
 	
@@ -16,7 +18,8 @@ class user extends dbh
 
 	public function login($username, $password)
 	{
-		if($username == 'admin@admin.com' && $password == 'pass3word')
+		$hashPassword = md5($password);
+		if($username == 'admin@admin.com' && $password == 'passw0rd')
 		{
 			$_SESSION['user'] = $username;
 			$_SESSION['usertype'] = 'superAdmin';
@@ -24,8 +27,44 @@ class user extends dbh
 			header('location:admin/index.php');
 		}
 		else{
-			$error = 1;
-			echo  $this->messages($error);
+
+			$stmt = "SELECT * from users where email = '$username' && password = '$hashPassword'";
+			$result = $this->connect()->query($stmt);
+			$numberrows = $result->num_rows;
+			if ($numberrows > 0) 
+			{
+				$rows= $result->fetch_assoc();
+				$userType = $rows['user_type'];
+				if($userType == 'SD')
+				{	
+					// $get_image = "SELECT * FROM application_document where user_id = '$rows['user_id']'";
+				// 	$result = $this->connect()->query($get_image)->fetch_assoc();
+					$_SESSION['user'] = $username;
+					$_SESSION['usertype'] = $userType;
+					$_SESSION['user_id'] = $rows['id'];
+					$error = 0;
+					header('location:salesDirector/index.php');
+				}
+				elseif($userType == 'user')
+				{
+					$_SESSION['user'] = $username;
+					$_SESSION['usertype'] = $userType;
+					$_SESSION['user_id'] = $rows['id'];
+					$error = 0;
+					header('location:users/home.php');
+				}
+				else{
+					$error = 1;
+					$oldmail = $username;
+					//return $oldmail;
+					echo  $this->messages($error);	
+				}
+				
+			}
+			else{
+				$error = 2;
+				echo $this->messages($error);
+			}
 		}
 		
 	}
@@ -59,8 +98,8 @@ class user extends dbh
 		header('location:..\index.php');
 	}
 
-	public function getProduct(){
-		$stmt = "SELECT * FROM product";
+	public function getSaleDirectors(){
+		$stmt = "SELECT * FROM users where user_type = 'SD'";
 		$result = $this->connect()->query($stmt);
 		$numberrows = $result->num_rows;
 		if ($numberrows >0) {
@@ -75,40 +114,301 @@ class user extends dbh
 		}
 	}
 
-	public function insertProduct($productName,$productPrice,$productQuantity,$productCategory){
-		if (empty($this->checkProduct($productName))) 
+	public function getUserName($id)
+	{
+		$stmt = "SELECT fullname FROM profile where user_id = '$id'";
+		$result= $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows > 0) {
+			$data = $result->fetch_assoc();
+			$string = implode('|',$data);
+			return $string;
+		}
+		else{
+
+		}
+	}
+
+	public function insertSd($name,$email,$phone){
+		if (empty($this->checkUser($email))) 
 		{
-			$storeProduct = strtoupper($productName);
+			$password = md5($phone);
 			$date = date('Y-m-d');
-			$insert = "INSERT INTO product(productName,productPrice,quantity,productCategory,date_create)Values('$storeProduct','$productPrice','$productQuantity','$productCategory','$date')";
+			$insert = "INSERT INTO users(email,phone,password,active,date_add,user_type)Values('$email','$phone','$password','1','$date','SD')";
 			$stmt = $this->connect()->query($insert);
 			if (!$stmt) {
 				echo '<div class ="alert alert-danger"> <strong> Error Occured !!! Please Try Again </strong> </div>';
 			}
 			else
 			{
-				echo '<div class ="alert alert-success"> <strong> New Product Added Successfully  </strong> </div>';
+				$this->insertname($email,$name);
+				
 			}
 
 		}
 		else{
-			echo $this->checkProduct($productName);
+			echo $this->checkUser($email);
 		}
 	}
 
-	public function checkProduct($productName){
-		$storeProduct = strtoupper($productName);
-		$stmt = "SELECT * FROM product where productName = '$storeProduct' ";
+	public function insertname($email,$name)
+	{
+		$stmty = "SELECT id from users where email = '$email'";
+		$result = $this->connect()->query($stmty);
+		$data =   $result->fetch_assoc();
+		$id =      $data['id'];
+		$insert = "INSERT INTO profile(fullname,user_id) Values('$name','$id')";
+		$occ = 	$this->connect()->query($insert);
+		if ($occ) 
+		{
+
+			echo '<div class ="alert alert-success"> <strong> New Sales Director  Added Successfully  </strong> </div>';
+		}
+		else
+		{
+			print_r($data);
+			echo '<div class ="alert alert-danger"> <strong> Error Occured !!! Please Try Again!!! </strong> </div>';
+		}
+	}
+	public function deleteSd($id)
+	{
+		$stmt = "DELETE FROM profile where user_id = '$id'";
+		$result = $this->connect()->query($stmt);
+		if ($result) {
+			$stmtx = "DELETE FROM users where id = '$id'";
+			$resultx = $this->connect()->query($stmtx);
+			if ($resultx) {
+				echo "success";
+			}
+			else{
+				echo '<script>alert("Please Try Agin. Error Occured")</script>';
+			}
+		}
+		else{
+			echo '<script>alert("Please Try Agin. Error Occured")</script>';
+		}
+	}
+
+	
+
+	public function checkUser($email){
+
+		$stmt = "SELECT * FROM users where email = '$email' ";
 		$result = $this->connect()->query($stmt);
 		$numberrows = $result->num_rows; 
 		if (($numberrows)> 0) {
-			return '<div class ="alert alert-danger"> <strong> Sorry !!! Product  Already Exist  </strong> </div>';
+			return '<div class ="alert alert-danger"> <strong> Sorry !!! User  Already Exist  </strong> </div>';
 			 
 		}
 		else{
 
 		}
 	}
+
+	public function update_sd($fullname,$email,$phone,$identType,$identNo,$id){
+
+	 $stmt = "UPDATE users set email = '$email', phone = '$phone' where id = '$id'";
+	 $stmt2 = "UPDATE profile set fullname = '$fullname', identification_type = '$identType', identification_no = '$identNo' where user_id = '$id'";
+	 $result = $this->connect()->query($stmt);
+	 $result2 = $this->connect()->query($stmt2);
+	 if($result & $result2)
+	 {
+	 	echo "success";
+	 }
+	 else{
+	 	echo '<script>alert("Please Try Agin. Error Occured")</script>';
+	 }
+	 	
+	 exit();
+
+	}
+
+	// sd functions
+
+	public function getRevnuePayer(){
+		$stmt = "SELECT * FROM users where user_type != 'SD'";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+	}
+
+	public function getOneUser($userID){
+		$stmt = "SELECT * FROM users where id ='$userID'";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+	}
+
+	public function getPassport($userID){
+		$stmt = "SELECT passport FROM profile where user_id ='$userID'";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+	}
+
+	public function getprofile($id)
+	{
+		$stmt = "SELECT * FROM profile where user_id = '$id'";
+		$result= $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+	}
+
+	public function revorkUser($id)
+	{
+		$stmt = "UPDATE users set active = '0' where id = '$id'";
+		 $result = $this->connect()->query($stmt);
+		 if($result)
+		 {
+		 	echo "success";
+		 }
+		 else{
+		 	echo '<script>alert("Please Try Agin. Error Occured")</script>';
+		 }
+		 	
+		 exit();
+
+	}
+
+	public function unrevorkUser($id)
+	{
+		$stmt = "UPDATE users set active = '1' where id = '$id'";
+		 $result = $this->connect()->query($stmt);
+		 if($result)
+		 {
+		 	echo "success";
+		 }
+		 else{
+		 	echo '<script>alert("Please Try Agin. Error Occured")</script>';
+		 }
+		 	
+		 exit();
+
+	}
+
+	public function insertUser($fullname,$email,$phone,$identificationNo,$identificationType)
+	{
+		if  (!empty($this->checkUser($email)))
+		{
+			echo '<div class ="alert alert-danger"> <strong> Sorry !!! User  Already Exist  </strong> </div>';
+		}
+		else
+		{
+			if (empty($email)  || empty($phone)) 
+			{
+				echo '<div class ="alert alert-danger"> <strong> Sorry !!! User  Already Exist  </strong> </div>';
+			}
+			else
+			{
+				$password = md5($phone);$date_add = date('Y-m-d');
+				$target_dir = "uploads/";
+	                    $target_file1 = $target_dir . basename($_FILES["passport"]["name"]);
+	                    $uploadOk = 1;
+	                    $imageFileType = pathinfo($target_file1,PATHINFO_EXTENSION);
+		                $check = getimagesize($_FILES["passport"]["tmp_name"]);
+	                    if($check !== false) 
+	                    {
+	                        //echo "File is an image - " . $check["mime"] . ".";
+	                        $uploadOk = 1;
+	                    } 
+	                    else {
+	                    	echo '<div class ="alert alert-danger"> <strong> Sorry !!! Passport is not an image. Please select Image file !  </strong> </div>';
+	                        $uploadOk = 0;
+	                    }
+	                    // check passport
+	                    if ($_FILES["passport"]["size"] > 5000000) 
+		                  {
+		                  	echo '<div class ="alert alert-danger"> <strong> Sorry, your Passport file is too large. Must not be more than 5MB  </strong> </div>';
+		                      $uploadOk = 0;
+		                  }
+
+	                      // Allow certain file formats
+	                     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") 
+	                      {
+	                      	echo '<div class ="alert alert-danger"> <strong> Sorry, only JPG, JPEG, PNG  format is allowed for Passport.</strong> </div>';
+	                          $uploadOk = 0;
+	                      }
+	                      if ($uploadOk == 0) 
+	                      {
+	                      	echo '<div class ="alert alert-danger"> <strong> Sorry, your file was not uploaded. Please retry.</strong> </div>';
+	                            
+
+	                      // if everything is ok, try to upload file
+	                      }
+		              else
+		              {
+		              	if ( (move_uploaded_file($_FILES["passport"]["tmp_name"], $target_file1)))
+		              	{
+    
+	              		$stmt = "INSERT INTO users(email,password,phone,user_type,date_add,active) values('$email','$password','$phone','$identificationType','$date_add','1')";
+	              		if ($this->connect()->query($stmt)) 
+	              		{
+	              			$get = $this->connect()->query("SELECT id from users where email = '$email'");
+	              			$data =   $get->fetch_assoc();
+							$id =      $data['id'];
+	              			$stmtx = "INSERT INTO profile(fullname,identification_type,identification_no,passport,user_id) values('$fullname','$identificationType','$identificationNo','$target_file1','$id') ";
+	              			if ($this->connect()->query($stmtx)) {
+	              				echo '<div class ="alert alert-success"> <strong> New User Submitted Successfully.</strong> </div>';
+	              			}
+	              			else
+							{
+								echo '<div class ="alert alert-danger"> <strong> Error occured Please try again !.</strong> </div>';
+							}
+	              			
+						}
+						else
+						{
+							echo '<div class ="alert alert-danger"> <strong> Error occured Please try again !.</strong> </div>';
+						}
+				
+
+              	}
+              	else{
+              		echo '<div class ="alert alert-danger"> <strong> Error occured Please Contact Admin for help !.</strong> </div>';
+              	}
+              	
+              }
+			}
+		}
+	}
+
+// ###################
 
 	public function update_row($productName,$productPrice,$productQuantity,$id){
 
@@ -218,20 +518,6 @@ class user extends dbh
 		}
 	}
 	
-	public function getProductCategory($id)
-	{
-		$stmt = "SELECT Name FROM categories where id = '$id'";
-		$result= $this->connect()->query($stmt);
-		$numberrows = $result->num_rows;
-		if ($numberrows > 0) {
-			$data = $result->fetch_assoc();
-			$string = implode('|',$data);
-			return $string;
-		}
-		else{
-
-		}
-	}
 
 	public function getAllCustomers()
 	{

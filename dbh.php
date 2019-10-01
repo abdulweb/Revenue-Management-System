@@ -12,7 +12,7 @@ class dbh
 		$this->servername ='localhost';
 		$this->username ='root';
 		$this->password ='root';
-		$this->dbname ='farm_store';
+		$this->dbname ='rms';
 
 		$conn = new mysqli($this->servername,$this->username, $this->password,$this->dbname );
 		return $conn;

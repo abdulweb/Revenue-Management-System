@@ -20,7 +20,7 @@ include('header.php');
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.php">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item active">Sales Directors
+                                <li class="breadcrumb-item active">Revenue Payers
                                 </li>
                             </ol>
                         </div>
@@ -34,7 +34,11 @@ include('header.php');
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">                                    
-                                    <h4 class="card-title"><a href="addSd.php" class="btn btn-primary "><i class="la la-plus"></i>Add New</a></h4>
+                                    <h4 class="card-title">
+                                        <a href="addUser.php" class="btn btn-primary "><i class="la la-book"></i>Generate Report</a>
+                                        <a href="addUser.php" class="btn btn-success "><i class="la la-book"></i>Paid Report</a>
+                                        <a href="addUser.php" class="btn btn-info "><i class="la la-book"></i>unpaid Report</a>
+                                    </h4>
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
@@ -50,41 +54,12 @@ include('header.php');
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Name</th>
                                                         <th>Email</th>
-                                                        <th>Phone Number</th>
-                                                        <th>Created Date</th>
-                                                        <th>Control</th>
+                                                        <th>Payment Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php
-                                                    $results = $object->getSaleDirectors();
-                                                    if(!empty($results)){
-                                                    $i=1;
-                                                    foreach($results as $value) { 
-                                                    ?>
-                                                    <tr>
-                                                        <td><?=$i?></td>
-                                                        <td id="fullname<?php echo $value['id'] ?>"><?=$object->getUserName($value['id'])?></td>
-                                                        <td id="email<?php echo $value['id'] ?>"><?=$value['email']?></td>
-                                                        <td id="phone<?php echo $value['id'] ?>"><?=$value['phone']?></td>
-                                                        <td><?=$value['date_add']?></td>
-                                                        <td>
-                                                            <a title="Edit" href="#" class="btn btn-icon btn-primary mr-1 mb-1" onclick="edit_sds('<?php echo $value['id'];?>');" id="editBtn<?php echo $value['id'] ?>"><i class="la la-edit"></i></a>
-                                                            <!--  -->
-
-                                                            <button type="button" class="btn btn-icon btn-danger mr-1 mb-1 cancel-button" id="<?=$value['id']?>"><i class="la la-trash"></i></button>
-
-                                                            <a title="Edit" href="#" class="btn btn-icon btn-success mr-1 mb-1 saveBtn" onclick="save_sd('<?php echo $value['id'];?>');" id="saveBtn<?php echo $value['id'] ?>"><i class="la la-save"></i></a>
-
-                                                        </td>
-                                                    </tr>
-                                                <?php $i++; }
-                                                }
-                                                else{
-
-                                                    } ?>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -166,9 +141,13 @@ include('header.php');
  var fullname=document.getElementById("fullname"+id).innerHTML;
  var email=document.getElementById("email"+id).innerHTML;
  var phone=document.getElementById("phone"+id).innerHTML;
+ var identType=document.getElementById("identType"+id).innerHTML;
+ var identNo=document.getElementById("identNo"+id).innerHTML;
  document.getElementById("fullname"+id).innerHTML="<input type='text' class='form-control' autofocus id='fullname_text"+id+"' value='"+fullname+"'>";
  document.getElementById("email"+id).innerHTML="<input type='text' class='form-control' id='email_text"+id+"' value='"+email+"'>";
  document.getElementById("phone"+id).innerHTML="<input type='text' class='form-control' id='phone_text"+id+"' value='"+phone+"'>";    
+ document.getElementById("identType"+id).innerHTML="<input type='text' class='form-control' id='identType_text"+id+"' value='"+identType+"'>";    
+ document.getElementById("identNo"+id).innerHTML="<input type='text' class='form-control' id='identNo_text"+id+"' value='"+identNo+"'>";    
  document.getElementById("editBtn"+id).style.visibility="hidden";
  document.getElementById("saveBtn"+id).style.visibility="visible";
 }
@@ -178,6 +157,8 @@ function save_sd(id)
  var fullname=document.getElementById("fullname_text"+id).value;
  var email=document.getElementById("email_text"+id).value;
  var phone=document.getElementById("phone_text"+id).value;
+ var identType=document.getElementById("identType_text"+id).value;
+ var identNo=document.getElementById("identNo_text"+id).value;
     
  $.ajax
  ({
@@ -189,6 +170,8 @@ function save_sd(id)
    fullname:fullname,
    email:email,
    phone:phone,
+   identType:identType,
+   identNo:identNo,
   },
   success:function(response) {
    if(response=="success")
@@ -196,6 +179,8 @@ function save_sd(id)
     document.getElementById("fullname"+id).innerHTML=fullname;
     document.getElementById("email"+id).innerHTML=email;
     document.getElementById("phone"+id).innerHTML=phone;
+    document.getElementById("identType"+id).innerHTML=identType;
+    document.getElementById("identNo"+id).innerHTML=identNo;
 
     document.getElementById("editBtn"+id).style.visibility="visible";
     document.getElementById("saveBtn"+id).style.visibility="hidden";
@@ -206,7 +191,7 @@ function save_sd(id)
               }, 1000);
    }
    else{
-    alert('response');
+    alert(response);
    }
   }
 

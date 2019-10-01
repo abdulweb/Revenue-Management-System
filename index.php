@@ -2,30 +2,11 @@
 //session_start();
 include('dbh.php');
 include('user.php');
-
-//require_once('assets/constants/config.php');
-
-// $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-// try 
-//     {   
-//         $stmt = $conn->prepare("SELECT * FROM settings");
-//         $stmt->execute();
-//         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-//         $title=$result['title'];
-//         $footer=$result['footer'];
-//         $fevicon=$result['fevicon'];
-//         $login_image=$result['login_image'];
-                          
-//     }catch(PDOException $e)
-//     {
-//     echo "Connection failed: " . $e->getMessage();
-//     } 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Farm Inventroy System</title>
+<title>Revenue Management System</title>
 <link rel="shortcut icon" type="image/x-icon" href="assets/uploads/settings/<?=$fevicon?>">
  <!-- Meta-Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -79,9 +60,10 @@ include('user.php');
         <div class="agile_info">
             <div class="w3l_form">
                 <div class="left_grid_info">
-                    <h1>Manage Your Farm Product</h1>
-                    <p>Simple Farm Inventroy Management System </p>
-                    <small>Kindly Upload your farm image here</small>
+                    <h1 class="text-uppercase" style="color: seagreen">Revenue Managment System</h1>
+                    <p class="font-italic text-success">SOSSA Revenue Management System </p>
+                    <small> <i class="text-danger"> Note : </i> If you have any problem kindly contact the Finical secetry</small> <br>
+                    Not a Member? <a href="" class="font-italic text-primary "> Register Now !!!</a>
                     <!-- <img src="assets/uploads/settings/farm_img.jpg" class=""> -->
                     
                 </div>
@@ -93,6 +75,7 @@ include('user.php');
                     $username = $_POST['email'];
                     $password = $_POST['password'];
                     $object = new user();
+                    echo $username. '' .$password;
                    $object->login($username,$password);
                 }
             ?>
@@ -118,7 +101,7 @@ include('user.php');
     </div>
     <!-- footer -->
     <div class="footer">
-        <p>&copy; <?php echo date('Y'); ?> Farm Inventory System All Rights Reserved | Design by Abu Abdullahi.</p>
+        <p class="font-italic" style="color: seagreen">&copy; <?php echo date('Y'); ?>  All Rights Reserved | Design by Abdulrasheed.</p>
     </div>
     <!-- footer -->
 </div>
