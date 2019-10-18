@@ -31,34 +31,46 @@ class user extends dbh
 			$stmt = "SELECT * from users where email = '$username' && password = '$hashPassword'";
 			$result = $this->connect()->query($stmt);
 			$numberrows = $result->num_rows;
-			if ($numberrows > 0) 
+			if ($numberrows > 0 ) 
 			{
 				$rows= $result->fetch_assoc();
-				$userType = $rows['user_type'];
-				if($userType == 'SD')
-				{	
-					// $get_image = "SELECT * FROM application_document where user_id = '$rows['user_id']'";
-				// 	$result = $this->connect()->query($get_image)->fetch_assoc();
-					$_SESSION['user'] = $username;
-					$_SESSION['usertype'] = $userType;
-					$_SESSION['user_id'] = $rows['id'];
-					$error = 0;
-					header('location:salesDirector/index.php');
-				}
-				elseif($userType == 'user')
+				if ($rows['active'] == 1) 
 				{
-					$_SESSION['user'] = $username;
-					$_SESSION['usertype'] = $userType;
-					$_SESSION['user_id'] = $rows['id'];
-					$error = 0;
-					header('location:users/home.php');
+					# code...
+					$userType = $rows['user_type'];
+					if($userType == 'SD')
+					{	
+						// $get_image = "SELECT * FROM application_document where user_id = '$rows['user_id']'";
+					// 	$result = $this->connect()->query($get_image)->fetch_assoc();
+						$_SESSION['user'] = $username;
+						$_SESSION['usertype'] = $userType;
+						$_SESSION['user_id'] = $rows['id'];
+						$error = 0;
+						header('location:salesDirector/index.php');
+					}
+					elseif($userType == 'Shop Owner' || $userType == 'Driver')
+					{
+						$_SESSION['user'] = $username;
+						$_SESSION['usertype'] = $userType;
+						$_SESSION['user_id'] = $rows['id'];
+						$error = 0;
+						header('location:payer/index.php');
+					}
+					else
+					{
+						$error = 1;
+						$oldmail = $username;
+						//return $oldmail;
+						echo  $this->messages($error);	
+					}
+
 				}
-				else{
-					$error = 1;
-					$oldmail = $username;
-					//return $oldmail;
-					echo  $this->messages($error);	
-				}
+				else
+				{
+					// $error = 3;
+					// echo $this->messages($error);
+					echo '<div class ="alert alert-danger">'.$rows['message'].'</div>';
+				}	
 				
 			}
 			else{
@@ -78,9 +90,10 @@ class user extends dbh
 		{
 			return '<div class ="alert alert-danger"> Attension!!! Unthorize user </div>';
 		}
-		// else{
-		// 	return 'success';
-		// }
+		if($message == 3)
+		{
+			return '<div class ="alert alert-danger"> User account has been revorked.. Please Contact system Administrator for help </div>';
+		}
 	}
 
 	public function sessioncheck($sess)
@@ -226,7 +239,7 @@ class user extends dbh
 	// sd functions
 
 	public function getRevnuePayer(){
-		$stmt = "SELECT * FROM users where user_type != 'SD'";
+		$stmt = "SELECT * FROM users where user_type != 'SD' ORDER By id DESC";
 		$result = $this->connect()->query($stmt);
 		$numberrows = $result->num_rows;
 		if ($numberrows >0) {
@@ -290,9 +303,9 @@ class user extends dbh
 		}
 	}
 
-	public function revorkUser($id)
+	public function revorkUser($id, $message)
 	{
-		$stmt = "UPDATE users set active = '0' where id = '$id'";
+		$stmt = "UPDATE users set active = '0', message = '$message' where id = '$id'";
 		 $result = $this->connect()->query($stmt);
 		 if($result)
 		 {
@@ -406,6 +419,166 @@ class user extends dbh
               }
 			}
 		}
+	}
+
+	public function UpdateUser($fullname,$userID,$identificationNo,$identificationType)
+	{
+		$stmt = "UPDATE profile set fullname = '$fullname', identification_type = '$identificationType', identification_no = '$identificationNo' WHERE user_id = '$userID'";
+		$result = $this->connect()->query($stmt);
+		if ($result) {
+			echo '<div class ="alert alert-success">User info Updated Successfully</div>';
+		}
+		else{
+			echo '<div class ="alert alert-danger">error Occured</div>';
+		}
+	}
+
+	// ###################  Payer/users registration ##########################
+	public function insertPayer($fullname,$email,$phone,$identificationNo,$identificationType,$secret)
+	{
+		if  (!empty($this->checkUser($email)))
+		{
+			echo '<div class ="alert alert-danger"> <strong> Sorry !!! User  Already Exist  </strong> </div>';
+		}
+		else
+		{
+			if (empty($email)  || empty($phone)) 
+			{
+				echo '<div class ="alert alert-danger"> <strong> Sorry !!! Email or phone is required  </strong> </div>';
+			}
+			else
+			{
+				$password = md5($secret);$date_add = date('Y-m-d');
+				$target_dir = "salesDirector/uploads/";
+	                    $target_file1 = $target_dir . basename($_FILES["passport"]["name"]);
+	                    $uploadOk = 1;
+	                    $imageFileType = pathinfo($target_file1,PATHINFO_EXTENSION);
+		                $check = getimagesize($_FILES["passport"]["tmp_name"]);
+	                    if($check !== false) 
+	                    {
+	                        //echo "File is an image - " . $check["mime"] . ".";
+	                        $uploadOk = 1;
+	                    } 
+	                    else {
+	                    	echo '<div class ="alert alert-danger"> <strong> Sorry !!! Passport is not an image. Please select Image file !  </strong> </div>';
+	                        $uploadOk = 0;
+	                    }
+	                    // check passport
+	                    if ($_FILES["passport"]["size"] > 5000000) 
+		                  {
+		                  	echo '<div class ="alert alert-danger"> <strong> Sorry, your Passport file is too large. Must not be more than 5MB  </strong> </div>';
+		                      $uploadOk = 0;
+		                  }
+
+	                      // Allow certain file formats
+	                     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") 
+	                      {
+	                      	echo '<div class ="alert alert-danger"> <strong> Sorry, only JPG, JPEG, PNG  format is allowed for Passport.</strong> </div>';
+	                          $uploadOk = 0;
+	                      }
+	                      if ($uploadOk == 0) 
+	                      {
+	                      	echo '<div class ="alert alert-danger"> <strong> Sorry, your file was not uploaded. Please retry.</strong> </div>';
+	                            
+
+	                      // if everything is ok, try to upload file
+	                      }
+		              else
+		              {
+		              	if ( (move_uploaded_file($_FILES["passport"]["tmp_name"], $target_file1)))
+		              	{
+    
+	              		$stmt = "INSERT INTO users(email,password,phone,user_type,date_add,active,message) values('$email','$password','$phone','$identificationType','$date_add','0','Account not actived yet')";
+	              		if ($this->connect()->query($stmt)) 
+	              		{
+	              			$get = $this->connect()->query("SELECT id from users where email = '$email'");
+	              			$data =   $get->fetch_assoc();
+							$id =      $data['id'];
+							$picx = substr($target_file1, 14);
+	              			$stmtx = "INSERT INTO profile(fullname,identification_type,identification_no,passport,user_id) values('$fullname','$identificationType','$identificationNo','$picx','$id') ";
+	              			if ($this->connect()->query($stmtx)) {
+	              				echo '<div class ="alert alert-success"> <strong> Account creation Successfully.</strong> Kindly Wait to active your account before login </div>';
+	              			}
+	              			else
+							{
+								echo '<div class ="alert alert-danger"> <strong> Error occured Please try again !.</strong> </div>';
+							}
+	              			
+						}
+						else
+						{
+							echo '<div class ="alert alert-danger"> <strong> Error occured Please try again !.</strong> </div>';
+						}
+				
+
+              	}
+              	else{
+              		echo '<div class ="alert alert-danger"> <strong> Error occured Please Contact Admin for help !.</strong> </div>';
+              	}
+              	
+              }
+			}
+		}
+	}
+
+	public function month(){
+		echo '<option>January</option>
+			 <option>February</option>
+			 <option>March</option>
+			 <option>April</option>
+			 <option>May</option>
+			 <option>June</option>
+			 <option>July</option>
+			 <option>August</option>
+			 <option>September</option>
+			 <option>October</option>
+			 <option>November</option>
+			 <option>December</option>
+				';
+	}
+	public function payRevenue($amount,$userID,$month)
+	{
+		if($this->checkPayment($month,$userID) == 'error')
+		{
+			echo '<div class ="alert alert-danger"> <strong> You have paid for the month selected.</strong> </div>'; 
+		}
+		else
+		{
+			$now = new DateTime();
+			$date_paid = $now->format("Y-m-d");
+			$stmt = "INSERT INTO payment(user_id,amount,month_paid,date_paid) values('$userID','$amount','$month','$date_paid')";
+		  	$result = $this->connect()->query($stmt);
+		  	if($result)
+		  	{
+		  		echo '<div class ="alert alert-success"> <strong> payment Successfully!. Kindly wait for your payment to be verify</strong> </div>';
+		  	}
+		  	else{
+		  		echo '<div class ="alert alert-danger"> <strong> Error occured Please Contact Admin for help !.</strong> </div>';
+		  	}
+		}
+  	}
+  	public function checkPayment($month,$userID)
+  	{
+  		$stmt = "SELECT * FROM payment where user_id = $userID";
+		$result = $this->connect()->query($stmt);
+		$row = $result->fetch_assoc();
+		if (trim($row['month_paid']) == trim($month)) {
+			return 'error';
+		}
+		else
+		{
+			return 'success';
+		}
+  	}
+
+	  function previousYear($vardate,$added)
+	{
+	$data = explode("-", $vardate);
+	$date = new DateTime();            
+	$date->setDate($data[0], $data[1], $data[2]);
+	$date->modify("".$added."");
+	$day= $date->format("Y-m-d");
+	return $day;    
 	}
 
 // ###################

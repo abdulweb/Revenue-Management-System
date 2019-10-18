@@ -33,8 +33,7 @@ if (isset($_POST['delete_product'])) {
 
 if (isset($_POST['revorkUser'])) {
 	$id = $_POST['id'];
-	$message = $_POST['message'];
-	$object = $object->revorkUser($id,$message);
+	$object = $object->revorkUser($id);
 }
 
 if (isset($_POST['unrevorkUser'])) {

@@ -43,23 +43,20 @@ foreach ($results as $key => $value) {
                             <div class="card">
                                 <div class="card-header">                                    
                                     <h4 class="card-title">
-                                        <a href="editUser.php?id=<?php echo htmlentities($value['id']);?>" class="btn btn-info "><i class="la la-pencil"></i>Edit User</a>
+                                        <a href="editUser.php" class="btn btn-info "><i class="la la-pencil"></i>Edit User</a>
                                         <?php 
                                             if ($value['active'] == 1) {
                                         ?>
-                                        <a href="#" class="btn btn-success " data-toggle="modal" data-target="#large"  id="<?=$value['id']?>"><i class="la la-user"></i>Revork Permission</a>
+                                        <a href="#" class="btn btn-success revork-button" id="<?=$value['id']?>"><i class="la la-user"></i>Revork Permission</a>
                                         <?php
                                         }
                                         else
                                         {
                                         ?>
-                                         <a href="#" class="btn btn-warning unrevork-button" id="<?=$value['id']?>"><i class="la la-user"></i>Give Permission</a>
+                                         <a href="#" class="btn btn-warning unrevork-button" id="<?=$value['id']?>"><i class="la la-user"></i>Unrevork Permission</a>
                                         <?php
                                         }
                                         ?>
-                                        <!-- <button type="button" class="btn btn-outline-success block btn-lg" data-toggle="modal" data-target="#large">
-                                        Launch Modal
-                                    </button> -->
                                     </h4>
 
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
@@ -144,35 +141,6 @@ foreach ($results as $key => $value) {
             </div>
         </div>
     </div>
-
-       <!--  -->
-<div class="modal fade text-left" id="large" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h4 class="modal-title text-white text-uppercase" id="myModalLabel1"> User Permission</h4>
-                <button type="button" class="close text-danger font-bold" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form method="post">
-            <div class="col-12 col-sm-12 col-md-12">
-                <fieldset class="form-group position-relative has-icon-left">
-                    <label class="text-dark text-bold">Permission Message: </label>
-                    <textarea name="message" id="message" class="form-control" required></textarea>
-                </fieldset>
-            </div>
-            
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="button" id="<?=$value['id']?>" class="btn btn-success revork-button">Submit</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!--  -->
-
     <!-- END: Content-->
 <?php include 'footer.php'; ?>
 <script>
@@ -261,14 +229,12 @@ foreach ($results as $key => $value) {
         .then((isConfirm) => {
             if (isConfirm) {
                 var id=this.id;
-                var message = $("#message").val();
                 $.ajax({
                   type:'post',
                   url:'function.php',
                   data:{
                    revorkUser:'revorkUser',
                    id:id,
-                   message:message,
                   },
                   success: function(inputValue){
                     if (inputValue=="success") 
@@ -296,7 +262,7 @@ foreach ($results as $key => $value) {
     $('.unrevork-button').on('click',function(){        
         swal({
             title: "Are you sure?",
-            text: "To give Permission to this  User ?",
+            text: "To Revork This  User Permission!",
             icon: "warning",
             buttons: {
                 cancel: {
@@ -307,7 +273,7 @@ foreach ($results as $key => $value) {
                     closeModal: false,
                 },
                 confirm: {
-                    text: "Give",
+                    text: "Unrevork",
                     value: true,
                     visible: true,
                     className: "",
@@ -328,7 +294,7 @@ foreach ($results as $key => $value) {
                   success: function(inputValue){
                     if (inputValue=="success") 
                     {
-                        swal("Given!", "This User Permission has been Given.", "success");
+                        swal("Revorked!", "This User Permission has been Revorked.", "success");
                     setTimeout(function(){// wait for 5 secs(2)
                        location.reload(); // then reload the page.(3)
                   }, 1000); 
