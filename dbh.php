@@ -18,10 +18,5 @@ class dbh
 		return $conn;
 	}
 
-	// function __construct(argument)
-	// {
-	// 	# code...
-	// }
-
 }
 $object = new dbh();

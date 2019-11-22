@@ -11,10 +11,12 @@ include('header.php');
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item active">Dashboard
+                                <li class="breadcrumb-item"><a href="index.php">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active">Revenue Payment
                                 </li>
                             </ol>
-                            <h6 style="color: darkblue">Welcome <?=$_SESSION['user']?></h6>
+                            
                         </div>
                     </div>
                 </div>

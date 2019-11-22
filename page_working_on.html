@@ -1,0 +1,1667 @@
+<!doctype html>
+<!--[if lt IE 8]><html class="no-js lt-ie8"> <![endif]-->
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>CWP7pro.admin [abdulrasheed.cwp.dev.centos-webpanel.info
+]</title>
+    <!-- Mobile specific metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Force IE9 to render in normal mode -->
+    <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+    <meta name="author" content="" />
+    <meta name="description" content="CentOS Web Panel [CWP] - Free Control Panel for managing linux servers." />
+    <meta name="keywords" content="" />
+    <meta name="application-name" content="" />
+    <!-- Import google fonts - Heading first/ text second -->
+    <link href="design/css/fonts/opensans/v15/opensans_400-700.css" rel="stylesheet" type="text/css">
+    <link href="design/css/fonts/droidsans/v8/droidsans_400-700.css" rel="stylesheet" type="text/css">
+    <!-- Css files -->
+    <!-- Icons -->
+    <link href="design/css/icons.css" rel="stylesheet" />
+    <!-- Bootstrap stylesheets (included template modifications) -->
+    <link href="design/css/bootstrap.css" rel="stylesheet" />
+    <!-- Plugins stylesheets (all plugin custom css) -->
+    <link href="design/css/plugins.css" rel="stylesheet" />
+    <!-- Main stylesheets (template main css file) -->
+    <link href="design/css/main.css" rel="stylesheet" />
+    <!-- Custom stylesheets ( Put your own changes here ) -->
+    <link href="design/css/custom.css" rel="stylesheet" />
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="design/img/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="design/img/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="design/img/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="design/img/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="icon" href="design/img/ico/favicon.ico" type="image/png">
+    <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+    <meta name="msapplication-TileColor" content="#3399cc" />
+
+    <!-- From OLD CWP -->
+	<script language="javascript" src="design/img/js.php" type="text/javascript"></script>
+	<script type="text/javascript">
+var si_counter = null;
+$(document).ready(function(){
+$.ajaxSetup({ cache: false }); 
+si_counter = setInterval(function() {
+    $("#div_load").load("loader.php?func=get_load");
+	$("#div_topstats").load("loader.php?func=get_topstats");
+	$("#div_top_short").load("loader.php?func=get_top_short")
+	$("#div_mysql_process").load("loader.php?func=get_mysql_process");
+	$("#div_httpd_fullstatus").load("loader.php?func=get_httpd_fullstatus");
+	$("#div_netstat_port").load("loader.php?func=get_netstat_port");
+	
+
+}, 5000);
+});
+</script>
+
+<script type="text/javascript">
+$(window).load(function(){
+	$("#div_cl_topstats").load("loader.php?func=get_cl_topstats");
+    $("#div_aplication_version").load("loader.php?func=get_aplication_version");
+	$("#div_system_stats").load("loader.php?func=get_system_stats");
+	$("#div_system_info").load("loader.php?func=get_system_info");
+	$("#div_disk_info").load("loader.php?func=get_disk_info");
+	$("#div_cwp_info").load("loader.php?func=get_cwp_info");
+	$("#div_services_status").load("loader.php?func=get_services_status");
+});
+</script>
+
+<script type="text/javascript">
+function removeAlert(){
+	$.get("loader.php?func=removeMessage&message_id="+ arguments[0]);
+	return false;
+}
+</script>
+</head>
+
+<body>
+<!--[if lt IE 9]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<!-- .#header -->        
+    <div id="header">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.php"> CWP7pro.<span class="slogan">admin</span></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon16 icomoon-icon-arrow-4"></span>
+                </button>
+            </div> 
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="index.php"><span class="icon16 icomoon-icon-screen-2"></span> <span class="txt">Dashboard</span></a>
+                    </li>
+					
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="icon16 icomoon-icon-screen-2"></i><span class="txt"> Terminal</span>
+                                <b class="caret"></b>
+                            </a>
+							<ul class="dropdown-menu left dropdown-form template-settings">
+                                <li class="menu">
+                                    <ul role="menu">
+                                        <li><a href="console.php" target="_blank"><i class="icon16 icomoon-icon-screen-2"></i>Simple Terminal</a></li>
+                                        <li><a href="terminal.php" target="_blank"><i class="icon16 icomoon-icon-screen-2"></i>CWPpro Terminal</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li><li class="inactive">
+							<a target="_blank" href="fileManager2.php"><span class="icon16 silk-icon-folder"></span> <span class="txt">FileManager</span></a>
+						</li>                    
+                </ul>
+              
+                <ul class="nav navbar-right usernav">
+					
+
+					<li class="inactive">
+                            <a target='_blank' href="http://centos-webpanel.com/support-services"><span class="icon16 icomoon-icon-question-5"></span> <span class="txt">Support</span></a>
+                    </li>
+
+                    <li class="inactive">
+                            <a href="index.php?module=notifications_list">
+
+                            <span class="icon16 icomoon-icon-bell"></span> <span class="notification">3</span></a>
+                    </li>
+					
+					<li class="active"><a href="index.php?module=rootpwd"><span class="icon16 wpzoom-user-2"></span> <span class="txt">root</span></a> </li>
+								
+                    <li>
+						<a href="/login/index.php?logout=yes">
+						<span class="icon16 icomoon-icon-exit"></span>
+						<span class="txt"> Logout</span></a>
+					</li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </nav><!-- /navbar --> 
+
+    </div><!-- End #header -->
+
+    <div id="wrapper">
+        <!--Sidebar background-->
+        <div id="sidebarbg"></div>
+        <!--Sidebar content-->
+        <div id="sidebar">
+
+            <div class="shortcuts">
+                <ul>
+                    <li>
+					<a href='index.php?load=update' title='Load Averages [Enable/Disable]' class='tip'><span class='icon24 icomoon-icon-database'></span></a> Load: <span id='div_load'>Loading...</span>					</li>
+
+                </ul>
+            </div><!-- End search -->            
+
+            <div class="sidenav">
+
+                <div class="sidebar-widget mb0">
+                    <h5 class="title mb0" >Navigation</h5>
+                </div><!-- End .sidenav-widget -->
+
+                <div class="mainnav">
+    <input id="myInput" type="text" placeholder="Search.." style="width:100%;" autofocus>
+    <br>
+    <ul id="myList">
+        <li class="menup"><a href="index.php?"><span class="icon16 icomoon-icon-home-2"></span>Dashboard</a></li>						
+	 	
+		<li class="menup " id="mn-1"><a href="#" id="mn-1cond" class=""><span class="icon16 icomoon-icon-tools"></span>CWP Settings</a>
+            <ul class="sub "    id="mn-1-sub">
+				<li><a href="index.php?module=settings"><span class="icon16 icomoon-icon-arrow-right-3"></span>Edit Settings</a></li>
+                
+				<li><a href="index.php?module=file_editor&file=/etc/sysconfig/selinux"><span class="icon16 icomoon-icon-arrow-right-3"></span>SELinux</a></li>				<li><a href="index.php?module=backup_manager2"><span class="icon16 icomoon-icon-arrow-right-3"></span>NEW Backup (beta)</a></li>
+                <li><a href="index.php?module=backups"><span class="icon16 icomoon-icon-arrow-right-3"></span>Backup Configuration</a></li>
+				<li><a href="index.php?module=restore_backups"><span class="icon16 icomoon-icon-arrow-right-3"></span>Restore Backup</a></li>
+				<li><a href="index.php?module=webpanel_addons"><span class="icon16 icomoon-icon-arrow-right-3"></span>CWP Addons</a></li>
+				<li><a target="_blank" href="http://forum.centos-webpanel.com/"><span class="icon16 icomoon-icon-arrow-right-3"></span>Support Forum</a></li>
+				<li><a target="_blank" href="http://wiki.centos-webpanel.com/"><span class="icon16 icomoon-icon-arrow-right-3"></span>CWP WIKI</a></li>
+				<li><a href="index.php?module=yum_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>Yum Manager</a></li>
+				<li><a href="index.php?module=reboot_srv"><span class="icon16 icomoon-icon-arrow-right-3"></span>Reboot Server</a></li>				
+				<li><a href="index.php?module=admin_apis"><span class="icon16 icomoon-icon-arrow-right-3"></span>API Manager</a></li>
+
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-2"><a href="#" id="mn-2cond"><span class="icon16 wpzoom-server"></span>Server Settings</a>
+            <ul class="sub "   id="mn-2-sub">
+                <li><a href="index.php?module=crontab"><span class="icon16 icomoon-icon-arrow-right-3"></span>Crontab for root</a></li>
+                <li><a href="index.php?module=crons"><span class="icon16 icomoon-icon-arrow-right-3"></span>Crontab for users</a></li>
+				<li><a href="index.php?module=rootpwd"><span class="icon16 icomoon-icon-arrow-right-3"></span>Change Root Password</a></li>
+				<li><a href="index.php?module=ssh_KeyGenerator"><span class="icon16 icomoon-icon-arrow-right-3"></span>SSH Key Generator</a></li>
+				<li><a href="index.php?module=date_time"><span class="icon16 icomoon-icon-arrow-right-3"></span>Change Date & Time</a></li>
+				<li><a href="index.php?module=change_hostname"><span class="icon16 icomoon-icon-arrow-right-3"></span>Change Hostname</a></li>
+				<li><a href="index.php?module=quota_settings"><span class="icon16 icomoon-icon-arrow-right-3"></span>Disk Quota</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-3"><a href="#" id="mn-3cond"><span class="icon16 icomoon-icon-quill-2"></span>WebServer Settings</a>
+            <ul class="sub "     id="mn-3-sub">
+                <li><a href="index.php?module=WebServers_manage"><span class="icon16 icomoon-icon-arrow-right-3"></span>Select WebServers</a></li>
+                <li><a href="index.php?module=WebServers_conf"><span class="icon16 icomoon-icon-arrow-right-3"></span>WebServers Main Conf</a></li>
+                <li><a href="index.php?module=WebServers_domain"><span class="icon16 icomoon-icon-arrow-right-3"></span>WebServers Domain Conf</a></li>
+                <li><a href="index.php?module=WebServers_tpl_editor"><span class="icon16 icomoon-icon-arrow-right-3"></span>WebServers Template Editor</a></li>
+                <li><a href="index.php?module=WebServers_conf_editor"><span class="icon16 icomoon-icon-arrow-right-3"></span>WebServers Conf Editor</a></li>
+                				<li><a href="index.php?module=httpd_fullstatus"><span class="icon16 icomoon-icon-arrow-right-3"></span>Apache Status</a></li>
+				<li><a href="index.php?module=apache_builder"><span class="icon16 icomoon-icon-arrow-right-3"></span>Apache Re-Build</a></li>
+				<li><a href="index.php?module=system_redirects"><span class="icon16 icomoon-icon-arrow-right-3"></span>Apache Redirects</a></li>
+				<li><a href="index.php?module=ssl_certificate"><span class="icon16 icomoon-icon-arrow-right-3"></span>SSL Certificates</a></li>
+
+					
+				<li><a href="index.php?module=tomcat"><span class="icon16 icomoon-icon-arrow-right-3"></span>Tomcat Manager</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-4"><a href="#" id="mn-4cond"><span class="icon16 icomoon-icon-cog"></span>PHP Settings</a>
+            <ul class="sub "     id="mn-4-sub">
+				<li><a href="index.php?module=php_info"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP info</a></li>
+				<li><a href="index.php?module=php_short_info"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP short info</a></li>
+				<li><a href="index.php?module=php_addons"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP Addons</a></li>
+                <li><a href="index.php?module=php_switch_v2"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP Version Switcher</a></li>
+				<li><a href="index.php?module=php_selector2"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP Selector 2 (NEW)</a></li>
+				<li><a href="index.php?module=php_selector3"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP-FPM Selector (NEW)</a></li>
+				<li><a href="index.php?module=php_pecl"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP PECL extensions</a></li>
+				<li><a href="index.php?module=phpini_editor"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP Simple Editor</a></li>
+				<li><a href="index.php?module=file_editor&file=/usr/local/php/php.ini"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP.ini Configuration</a></li>
+				<li><a href="index.php?module=ffmpeg"><span class="icon16 icomoon-icon-arrow-right-3"></span>FFMPEG Installer</a></li>
+            </ul>
+        </li>
+
+		<li class="menup " id="mn-5"><a href="#" id="mn-5cond"><span class="icon16 wpzoom-monitor"></span>Service SSH</a>
+            <ul class="sub "     id="mn-5-sub">
+                <li><a href="index.php?module=top_stats"><span class="icon16 icomoon-icon-arrow-right-3"></span>Top Stats</a></li>
+								<li><a href="index.php?module=cpuinfo"><span class="icon16 icomoon-icon-arrow-right-3"></span>CPU info</a></li>
+                <li><a href="index.php?module=BandwidthMonitor"><span class="icon16 icomoon-icon-arrow-right-3"></span>Bandwidth Monitor</a></li>
+				<li><a href="index.php?module=netstat_ports"><span class="icon16 icomoon-icon-arrow-right-3"></span>Netstat Port Usage</a></li>
+				<li><a href="index.php?module=network_configuration"><span class="icon16 icomoon-icon-arrow-right-3"></span>Network Configuration</a></li>
+				<li><a href="index.php?module=live_monitor"><span class="icon16 icomoon-icon-arrow-right-3"></span>Live Monitor</a></li>
+				<li><a href="index.php?module=process_list"><span class="icon16 icomoon-icon-arrow-right-3"></span>Process List</a></li>
+				<li><a href="index.php?module=sysstat_graph"><span class="icon16 icomoon-icon-arrow-right-3"></span>Sysstat Graph</a></li>
+				<li><a href="index.php?module=ssh_java_console"><span class="icon16 icomoon-icon-arrow-right-3"></span>SSH Java Console</a></li>
+				<li><a href="index.php?module=send_ssh"><span class="icon16 icomoon-icon-arrow-right-3"></span>Send Shell command</a></li>
+				<li><a href="index.php?module=ssh_screen"><span class="icon16 icomoon-icon-arrow-right-3"></span>Run & List Screen</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-6"><a href="#" id="mn-6cond"><span class="icon16 icomoon-icon-drawer-3"></span>Services Config</a>
+            <ul class="sub "     id="mn-6-sub">
+				<li><a href="index.php?module=file_editor&file=/etc/ssh/sshd_config"><span class="icon16 icomoon-icon-arrow-right-3"></span>SSH Configuration</a></li>
+				<li><a href="index.php?module=startup_services"><span class="icon16 icomoon-icon-arrow-right-3"></span>Startup Services</a></li>
+				<li><a href="index.php?module=chkconfig"><span class="icon16 icomoon-icon-arrow-right-3"></span>ChkConfig Manager</a></li>
+				<li><a href="index.php?module=servicesMonitor"><span class="icon16 icomoon-icon-arrow-right-3"></span>ServicesMonitor (init)</a></li>
+				<li><a href="index.php?module=systemd_servicesMonitor"><span class="icon16 icomoon-icon-arrow-right-3"></span>ServicesMonitor (systemd)</a></li>
+				<li><a href="index.php?module=monit_monitoring"><span class="icon16 icomoon-icon-arrow-right-3"></span>Monit Monitoring (cwppro)</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-7"><a href="#" id="mn-7cond"><span class="icon16 wpzoom-user-2"></span>User Accounts</a>
+            <ul class="sub "     id="mn-7-sub">
+                <li><a href="index.php?module=new_account"><span class="icon16 icomoon-icon-arrow-right-3"></span>New Account</a></li>
+				<li><a href="index.php?module=list_accounts"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Accounts</a></li>
+				<li><a href="index.php?module=fix_acc_perm"><span class="icon16 icomoon-icon-arrow-right-3"></span>Fix Permissions</a></li>
+				<li><a href="index.php?module=cwptocwp"><span class="icon16 icomoon-icon-arrow-right-3"></span>CWP->CWP Migration</a></li>
+				<li><a href="index.php?module=migration_cpanel"><span class="icon16 icomoon-icon-arrow-right-3"></span>cPanel Account Restore</a></li>
+				<li><a href="index.php?module=migration_cpanel_v2"><span class="icon16 icomoon-icon-arrow-right-3"></span>cPanel Server Migration</a></li>
+				<li><a href="index.php?module=user_quota"><span class="icon16 icomoon-icon-arrow-right-3"></span>User Quota</a></li>
+				<li><a href="index.php?module=themes_lang2"><span class="icon16 icomoon-icon-arrow-right-3"></span>Features,Themes,Languages</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-8"><a href="#" id="mn-8cond"><span class="icon16 icomoon-icon-earth"></span>Domains</a>
+            <ul class="sub "     id="mn-8-sub">
+				<li><a href="index.php?module=add_domain"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add Domain</a></li>
+				<li><a href="index.php?module=list_domains"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Domains</a></li>
+				<li><a href="index.php?module=add_subdomain"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add SubDomain</a></li>
+				<li><a href="index.php?module=list_subdomains"><span class="icon16 icomoon-icon-arrow-right-3"></span>List SubDomains</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-9"><a href="#" id="mn-9cond"><span class="icon16 icomoon-icon-cube"></span>Packages</a>
+            <ul class="sub "     id="mn-9-sub">
+				<li><a href="index.php?module=packages"><span class="icon16 icomoon-icon-arrow-right-3"></span>Packages</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup  hasSub highlight-menu" id="mn-10"><a href="#" id="mn-10cond"><span class="icon16 brocco-icon-database"></span>SQL Services</a>
+            <ul class="sub  show"   style="display:block;"   id="mn-10-sub">
+                <li><a href="index.php?module=autologin_pma" target="_blank"><span class="icon16 icomoon-icon-arrow-right-3"></span>phpMyAdmin</a></li>
+				<li><a href="index.php?module=mysql_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>MySQL Manager</a></li>
+				<li><a href="index.php?module=mysql_processes"><span class="icon16 icomoon-icon-arrow-right-3"></span>Show MySQL Processes</a></li>
+				<li><a href="index.php?module=file_editor&file=/etc/my.cnf"><span class="icon16 icomoon-icon-arrow-right-3"></span>MySQL Configuration</a></li>
+				<li><a href="index.php?module=postgresql"><span class="icon16 icomoon-icon-arrow-right-3"></span>PosgreSQL Installer</a></li>
+							<li><a href="index.php?module=mongodb_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>MongoDB Manager</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-11"><a href="#" id="mn-11cond"><span class="icon16 icomoon-icon-mail-2"></span>Email</a>
+            <ul class="sub "     id="mn-11-sub">
+				<li><a href="index.php?module=mail_list"><span class="icon16 icomoon-icon-arrow-right-3"></span>Email Accounts</a></li>
+				<li><a href="index.php?module=mail_list_alias"><span class="icon16 icomoon-icon-arrow-right-3"></span>Email Aliases/Forwarders</a></li>
+				<li><a href="index.php?module=mail_autoreply"><span class="icon16 icomoon-icon-arrow-right-3"></span>Email AutoResponders</a></li>
+				<li><a href="index.php?module=mx_routing"><span class="icon16 icomoon-icon-arrow-right-3"></span>Mail Routing</a></li>
+				<li><a href="/roundcube" target="_blank"><span class="icon16 icomoon-icon-arrow-right-3"></span>Roundcube Webmail</a></li>
+				<li><a href="index.php?module=mail_queue"><span class="icon16 icomoon-icon-arrow-right-3"></span>Manage Mail Queue</a></li>
+				<li><a href="index.php?module=mail_explorer"><span class="icon16 icomoon-icon-arrow-right-3"></span>Mail Explorer</a></li>
+				<li><a href="index.php?module=postfix_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>MailServer Manager</a></li>
+				<li><a href="index.php?module=rdns_checker"><span class="icon16 icomoon-icon-arrow-right-3"></span>rDNS Checker</a></li>
+				<li><a href="index.php?module=dkim"><span class="icon16 icomoon-icon-arrow-right-3"></span>DKIM Manager</a></li>
+				<li><a href="index.php?module=spf"><span class="icon16 icomoon-icon-arrow-right-3"></span>SPF Manager</a></li>
+				<li><a href="index.php?module=antispam"><span class="icon16 icomoon-icon-arrow-right-3"></span>AntiSpam</a></li>
+				<li><a href="index.php?module=spamexperts"><span class="icon16 icomoon-icon-arrow-right-3"></span>SpamExperts</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-12"><a href="#" id="mn-12cond"><span class="icon16 iconic-icon-layers"></span>DNS Functions</a>
+            <ul class="sub "     id="mn-12-sub">
+                <li><a href="index.php?module=freedns"><span class="icon16 icomoon-icon-arrow-right-3"></span>FreeDNS Manager</a></li>
+
+				<li><a href="index.php?module=file_editor&file=/etc/named.conf"><span class="icon16 icomoon-icon-arrow-right-3"></span>Edit DNS config</a></li>
+				<li><a href="index.php?module=dns_add_zone"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add DNS Zone</a></li>
+				<li><a href="index.php?module=dns_list_zones"><span class="icon16 icomoon-icon-arrow-right-3"></span>List DNS Zones</a></li>
+				<li><a href="index.php?module=nameservers"><span class="icon16 icomoon-icon-arrow-right-3"></span>Edit Nameservers IPs</a></li>
+				<li><a href="index.php?module=slave_dns_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>Slave DNS Manager</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-13"><a href="#" id="mn-13cond"><span class="icon16 wpzoom-shield"></span>Security</a>
+            <ul class="sub "     id="mn-13-sub">
+                <li><a href="index.php?module=csf"><span class="icon16 icomoon-icon-arrow-right-3"></span>CSF Firewall</a></li>
+                <li><a href="index.php?module=firewall"><span class="icon16 icomoon-icon-arrow-right-3"></span>Firewall Manager</a></li>
+				<li><a href="index.php?module=iptables_list"><span class="icon16 icomoon-icon-arrow-right-3"></span>List iptables rules</a></li>
+				<li><a href="index.php?module=mod_security"><span class="icon16 icomoon-icon-arrow-right-3"></span>Mod Security</a></li>
+				<li><a href="index.php?module=file_editor&file=/etc/security/limits.conf"><span class="icon16 icomoon-icon-arrow-right-3"></span>Security Limits</a></li>
+				<li><a href="index.php?module=cgroups"><span class="icon16 icomoon-icon-arrow-right-3"></span>Cgroups Resource Limits</a></li>
+				<li><a href="index.php?module=security_UserProcess"><span class="icon16 icomoon-icon-arrow-right-3"></span>Secure Processes</a></li>
+				<li><a href="index.php?module=ulimits"><span class="icon16 icomoon-icon-arrow-right-3"></span>Ulimit's per user</a></li>
+				<li><a href="index.php?module=file_editor&file=/etc/hosts.allow"><span class="icon16 icomoon-icon-arrow-right-3"></span>Hosts Allow</a></li>
+				<li><a href="index.php?module=file_editor&file=/etc/hosts.deny"><span class="icon16 icomoon-icon-arrow-right-3"></span>Hosts Deny</a></li>
+				<li><a href="index.php?module=chshell"><span class="icon16 icomoon-icon-arrow-right-3"></span>Shell Access</a></li>
+				<li><a href="index.php?module=user_monitoring"><span class="icon16 icomoon-icon-arrow-right-3"></span>User Monitoring</a></li>
+				<li><a href="index.php?module=ssl_generator"><span class="icon16 icomoon-icon-arrow-right-3"></span>SSL Generator</a></li>
+				<li><a href="index.php?module=security_maldet"><span class="icon16 icomoon-icon-arrow-right-3"></span>Security Maldet Scan</a></li>
+				<li><a href="index.php?module=security_rkhunter"><span class="icon16 icomoon-icon-arrow-right-3"></span>Security RKHunter Scan</a></li>
+				<li><a href="index.php?module=security_lynis"><span class="icon16 icomoon-icon-arrow-right-3"></span>Security Lynis Scan</a></li>
+				<li><a href="index.php?module=security_symlink_scan"><span class="icon16 icomoon-icon-arrow-right-3"></span>Security Symlink Scan</a></li>
+				<li><a href="index.php?module=login_security"><span class="icon16 icomoon-icon-arrow-right-3"></span>User Login Security</a></li>
+							</ul>
+        </li>
+		
+		<li class="menup " id="mn-14"><a href="#" id="mn-14cond"><span class="icon16 silk-icon-folder"></span>File Management</a>
+            <ul class="sub "    id="mn-14-sub">
+                <li><a target="_blank" href="fileManager2.php"><span class="icon16 icomoon-icon-arrow-right-3"></span>Advanced File Manager</a></li>
+				<li><a href="fileManager2.php?frame=3&fm_current_dir=/var/log/"><span class="icon16 icomoon-icon-arrow-right-3"></span>Server Logs</a></li>
+				<li><a href="index.php?module=viewerlogs"><span class="icon16 icomoon-icon-arrow-right-3"></span>CWP->Log Viewer</a></li>
+				<li><a href="index.php?module=log_rotate"><span class="icon16 icomoon-icon-arrow-right-3"></span>Logrotate Manager</a></li>
+				<li><a href="index.php?module=ftp_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>FTP Manager v2</a></li>
+				<li><a href="index.php?module=disk_quota"><span class="icon16 icomoon-icon-arrow-right-3"></span>Disk Quota Setup</a></li>
+                <li><a href="index.php?module=disk_details"><span class="icon16 icomoon-icon-arrow-right-3"></span>Disk Details</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-15"><a href="#" id="mn-15cond"><span class="icon16 wpzoom-cord"></span>Plugins</a>
+            <ul class="sub "     id="mn-15-sub">
+				<li><a href="index.php?module=shoutcast"><span class="icon16 icomoon-icon-arrow-right-3"></span>ShoutCast Manager</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-16"><a href="#" id="mn-16cond"><span class="icon16 icomoon-icon-hammer"></span>Developer Menu</a>
+            <ul class="sub "     id="mn-16-sub">
+				<li><a href="index.php?module=example"><span class="icon16 icomoon-icon-arrow-right-3"></span>Example Module</a></li>
+				                                
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-17"><a href="#" id="mn-17cond"><span class="icon16 icomoon-icon-new"></span>Script Installers</a>
+            <ul class="sub "     id="mn-17-sub">
+				<li><a href="index.php?module=scripts_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>Scripts Manager</a></li>
+				            </ul>
+        </li>
+
+        <li class="menup " id="mn-18"><a href="#" id="mn-18cond"><span class="icon16 icomoon-icon-new"></span>Billing</a>
+            <ul class="sub "     id="mn-18-sub">
+				<li><a href="index.php?module=whmcs"><span class="icon16 icomoon-icon-arrow-right-3"></span>WHMCS</a></li>
+            </ul>
+        </li>
+
+        <li class="menup " id="mn-19"><a href="#" id="mn-19cond"><span class="icon16 icomoon-icon-new"></span>Graphs</a>
+            <ul class="sub "     id="mn-19-sub">
+				<li><a href="index.php?module=netdata"><span class="icon16 icomoon-icon-arrow-right-3"></span>Netdata</a></li>
+            </ul>
+        </li>
+
+    </ul>
+</div>
+
+<div><span class="icon16 icomoon-icon-users-2"></span>User Connected <input type="hidden" id="useronline" value="23"></div>
+<p><div class="col-md-12">
+               </div></p>
+
+<script>
+$(".menup").click(function (){
+        /*var i;
+        for(i=1;i < 7;i++){
+            sessionStorage.setItem("mn-"+i+"cond", 'notExpand');
+        }*/
+        var id=$(this).attr("id");
+        if($("#"+id+"cond").hasClass('expand')){
+            //sessionStorage.setItem(id+"cond", 'expand');
+            localStorage.setItem(id+"cond", "expand");
+        }else{
+            //sessionStorage.setItem(id+"cond", 'notExpand');
+            localStorage.setItem(id+"cond", "notExpand");
+        }
+    });
+ 
+function menuextend(){
+        var i;
+        for(i=1;i < 19;i++){
+            //var cond = sessionStorage.getItem("mn-"+i+"cond");
+            var cond = localStorage.getItem("mn-"+i+"cond");
+            if(cond==null){
+                localStorage.setItem("mn-"+i+"cond", "notExpand");
+            }
+            //alert("mn-"+i+"cond es igual a:"+cond);
+            if(cond=='expand'){
+                $('#mn-'+i+'cond').removeClass('notExpand');
+                $('#mn-'+i+'-sub').show();
+            }else if(cond=='notExpand'){
+                $('#mn-'+i+'cond').removeClass('expand');
+                $('#mn-'+i+'-sub').hide();
+            }
+        }
+    }
+//menuextend();
+
+$(document).ready(function(){
+	$("#myInput").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		console.log(value);
+		$('.menup').removeClass('highlight-menu');
+		$('.menup a').removeClass('notExpand');
+		$('.menup .sub').removeClass('show');
+		$('.menup .sub').hide();
+		
+		if(value != ''){		
+			$('.menup').addClass('highlight-menu');
+			$('.menup a').addClass('expand');
+			$('.menup ul li a').removeClass('expand');
+			
+			$('.menup .sub').addClass('show');
+			$('.menup .sub').show();
+		}
+				
+		$("#myList li ").filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
+	
+});
+
+function logonuser(st,user){
+    //return false;
+    if(st==0){
+        $("#userlg").html(user);
+        $("#userlogon").val(user);
+        $("#modal-user").modal('toggle');
+        return false;
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "loader_ajax.php?ajax=loggedin_users&acc=logon",
+            data: "user="+$("#userlogon").val(),
+            complete: function (datos) {
+                var user2=$("#userlogon").val();
+                var uscon=($("#useronline").val()-1);
+                $("#useronline2").html(uscon);
+                $("#div"+user2).hide('blind');
+                $("#modal-user").modal('toggle');
+            }
+        });
+        return false;
+    }
+}
+
+ </script>
+            </div><!-- End sidenav -->
+			</div><!-- End #sidebar -->
+
+        <!--Body content-->
+        <div id="content" class="page-content clearfix">
+            <div class="contentwrapper"><!--Content wrapper-->
+
+                <div class="heading">
+                <h3>mysql_manager</h3>               
+
+
+                    
+                    <ul class="breadcrumb">
+                        <li>You are here:</li>
+                        <li>
+                            <a href="index.php" class="tip" title="back to dashboard">
+                                <span class="icon16 icomoon-icon-screen-2"></span>
+                            </a> 
+                            <span class="divider">
+                                <span class="icon16 icomoon-icon-arrow-right-3"></span>
+                            </span>
+                        </li>
+                        <li class="active">mysql_manager</li>
+                    </ul>
+
+                </div><!-- End .heading-->
+
+                <!-- Build page from here: -->
+                <div class="row">
+                	
+					<script>
+					    function deleteNotification(code)
+                        {
+                            $.ajax('loader_ajax.php?ajax=notifications&action=delete&code=' + code);
+                        }
+					    $(document).ready(function(){
+										         
+					    });
+					</script>
+
+					
+
+<table align='left' cellpadding='5' cellspacing='1' border='0' width='100%' class='table table-bordered'>
+	<thead>
+	<tr class='evenrowcolor'>
+		<th align='left'>
+			<a href='index.php?module=mysql_manager'><img src='design/img/start.png'> List Databases and Users</a> | 
+			<a href='index.php?module=mysql_manager&action=list_users'><img src='design/img/start.png'> List Users</a> | 
+			<a href='index.php?module=mysql_manager&action=list_grants'><img src='design/img/start.png'> List Permissions</a> | 
+			<a href='index.php?module=mysql_manager&action=create_database_only'><img src='design/img/add.png'> Create Database</a> | 
+			<a href='index.php?module=mysql_manager&action=create_database'><img src='design/img/add.png'> Create Database and User</a> |
+			<a href='index.php?module=mysql_manager&action=check_conf'><img src='design/img/start.png'> Security & Optimization Check</a>
+		</th>
+	</tr>
+	</thead>
+</table>
+<br><br><br>
+
+<h3>List of MySQL databases and users that have access to database</h3> <b>%</b> - Any IP can access database <br><b>localhost</b> - Access to database is allowed only from this server <br><br><table align='left' cellpadding='5' cellspacing='1' border='0' width='100%' class='table table-bordered table-hover'><thead><tr class='evenrowcolor'>
+		   <th colspan='1' align='left'>Database</th>
+		   <th colspan='1' align='left'>User [ Host ]</th>
+		   <th colspan='1' align='left'>Add User</th>
+		</tr></thead><tr class='oddrowcolor'><td>information_schema <a href='index.php?module=mysql_manager&drop_database=information_schema' onclick="return confirm('Are you sure you want to delete database: information_schema ?');"><img src='design/img/delete.png' title='Delete database: information_schema'></a>
+				[<a title='OPTIMIZE: Optimize table' href='index.php?module=mysql_manager&check_o=information_schema'>O</a>]
+				[<a title='CHECK: Check table for errors' href='index.php?module=mysql_manager&check_c=information_schema'>C</a>]
+				[<a title='REPAIR: Can fix almost anything except unique keys that are not unique.' href='index.php?module=mysql_manager&check_r=information_schema'>R</a>]
+				[<a title='BACKUP: Create backup of database in /backup/mysql/user folder' href='index.php?module=mysql_manager&check_b=information_schema'>B</a>]
+				</td><td></td><td><img src='design/img/add.png'> <a href='index.php?module=mysql_manager&action=create_user_for_db&db_name=information_schema'>Add New User</a></td></tr><tr class='oddrowcolor'><td>mysql <a href='index.php?module=mysql_manager&drop_database=mysql' onclick="return confirm('Are you sure you want to delete database: mysql ?');"><img src='design/img/delete.png' title='Delete database: mysql'></a>
+				[<a title='OPTIMIZE: Optimize table' href='index.php?module=mysql_manager&check_o=mysql'>O</a>]
+				[<a title='CHECK: Check table for errors' href='index.php?module=mysql_manager&check_c=mysql'>C</a>]
+				[<a title='REPAIR: Can fix almost anything except unique keys that are not unique.' href='index.php?module=mysql_manager&check_r=mysql'>R</a>]
+				[<a title='BACKUP: Create backup of database in /backup/mysql/user folder' href='index.php?module=mysql_manager&check_b=mysql'>B</a>]
+				</td><td></td><td><img src='design/img/add.png'> <a href='index.php?module=mysql_manager&action=create_user_for_db&db_name=mysql'>Add New User</a></td></tr><tr class='oddrowcolor'><td>oauthv2 <a href='index.php?module=mysql_manager&drop_database=oauthv2' onclick="return confirm('Are you sure you want to delete database: oauthv2 ?');"><img src='design/img/delete.png' title='Delete database: oauthv2'></a>
+				[<a title='OPTIMIZE: Optimize table' href='index.php?module=mysql_manager&check_o=oauthv2'>O</a>]
+				[<a title='CHECK: Check table for errors' href='index.php?module=mysql_manager&check_c=oauthv2'>C</a>]
+				[<a title='REPAIR: Can fix almost anything except unique keys that are not unique.' href='index.php?module=mysql_manager&check_r=oauthv2'>R</a>]
+				[<a title='BACKUP: Create backup of database in /backup/mysql/user folder' href='index.php?module=mysql_manager&check_b=oauthv2'>B</a>]
+				</td><td></td><td><img src='design/img/add.png'> <a href='index.php?module=mysql_manager&action=create_user_for_db&db_name=oauthv2'>Add New User</a></td></tr><tr class='oddrowcolor'><td>performance_schema <a href='index.php?module=mysql_manager&drop_database=performance_schema' onclick="return confirm('Are you sure you want to delete database: performance_schema ?');"><img src='design/img/delete.png' title='Delete database: performance_schema'></a>
+				[<a title='OPTIMIZE: Optimize table' href='index.php?module=mysql_manager&check_o=performance_schema'>O</a>]
+				[<a title='CHECK: Check table for errors' href='index.php?module=mysql_manager&check_c=performance_schema'>C</a>]
+				[<a title='REPAIR: Can fix almost anything except unique keys that are not unique.' href='index.php?module=mysql_manager&check_r=performance_schema'>R</a>]
+				[<a title='BACKUP: Create backup of database in /backup/mysql/user folder' href='index.php?module=mysql_manager&check_b=performance_schema'>B</a>]
+				</td><td></td><td><img src='design/img/add.png'> <a href='index.php?module=mysql_manager&action=create_user_for_db&db_name=performance_schema'>Add New User</a></td></tr><tr class='oddrowcolor'><td>postfix <a href='index.php?module=mysql_manager&drop_database=postfix' onclick="return confirm('Are you sure you want to delete database: postfix ?');"><img src='design/img/delete.png' title='Delete database: postfix'></a>
+				[<a title='OPTIMIZE: Optimize table' href='index.php?module=mysql_manager&check_o=postfix'>O</a>]
+				[<a title='CHECK: Check table for errors' href='index.php?module=mysql_manager&check_c=postfix'>C</a>]
+				[<a title='REPAIR: Can fix almost anything except unique keys that are not unique.' href='index.php?module=mysql_manager&check_r=postfix'>R</a>]
+				[<a title='BACKUP: Create backup of database in /backup/mysql/user folder' href='index.php?module=mysql_manager&check_b=postfix'>B</a>]
+				</td><td>postfix [ localhost ] 
+							[<a href='index.php?module=mysql_manager&action=edit_user_passwd&username=postfix&user_host=localhost' title='Change Password'>P</a>]
+							<a href='index.php?module=mysql_manager&del_user=postfix&del_host=localhost' onclick="return confirm('Are you sure you want to delete user: postfix ?');"><img src='design/img/delete.png' title='Delete user: postfix'></a> 
+							<br></td><td><img src='design/img/add.png'> <a href='index.php?module=mysql_manager&action=create_user_for_db&db_name=postfix'>Add New User</a></td></tr><tr class='oddrowcolor'><td>root_cwp <a href='index.php?module=mysql_manager&drop_database=root_cwp' onclick="return confirm('Are you sure you want to delete database: root_cwp ?');"><img src='design/img/delete.png' title='Delete database: root_cwp'></a>
+				[<a title='OPTIMIZE: Optimize table' href='index.php?module=mysql_manager&check_o=root_cwp'>O</a>]
+				[<a title='CHECK: Check table for errors' href='index.php?module=mysql_manager&check_c=root_cwp'>C</a>]
+				[<a title='REPAIR: Can fix almost anything except unique keys that are not unique.' href='index.php?module=mysql_manager&check_r=root_cwp'>R</a>]
+				[<a title='BACKUP: Create backup of database in /backup/mysql/user folder' href='index.php?module=mysql_manager&check_b=root_cwp'>B</a>]
+				</td><td></td><td><img src='design/img/add.png'> <a href='index.php?module=mysql_manager&action=create_user_for_db&db_name=root_cwp'>Add New User</a></td></tr><tr class='oddrowcolor'><td>roundcube <a href='index.php?module=mysql_manager&drop_database=roundcube' onclick="return confirm('Are you sure you want to delete database: roundcube ?');"><img src='design/img/delete.png' title='Delete database: roundcube'></a>
+				[<a title='OPTIMIZE: Optimize table' href='index.php?module=mysql_manager&check_o=roundcube'>O</a>]
+				[<a title='CHECK: Check table for errors' href='index.php?module=mysql_manager&check_c=roundcube'>C</a>]
+				[<a title='REPAIR: Can fix almost anything except unique keys that are not unique.' href='index.php?module=mysql_manager&check_r=roundcube'>R</a>]
+				[<a title='BACKUP: Create backup of database in /backup/mysql/user folder' href='index.php?module=mysql_manager&check_b=roundcube'>B</a>]
+				</td><td>roundcube [ localhost ] 
+							[<a href='index.php?module=mysql_manager&action=edit_user_passwd&username=roundcube&user_host=localhost' title='Change Password'>P</a>]
+							<a href='index.php?module=mysql_manager&del_user=roundcube&del_host=localhost' onclick="return confirm('Are you sure you want to delete user: roundcube ?');"><img src='design/img/delete.png' title='Delete user: roundcube'></a> 
+							<br></td><td><img src='design/img/add.png'> <a href='index.php?module=mysql_manager&action=create_user_for_db&db_name=roundcube'>Add New User</a></td></tr></table>
+	
+
+                </div><!-- End .row -->
+                
+            </div><!-- End contentwrapper -->
+        </div><!-- End #content -->
+
+        <!-- Session logout modal for user panel -->
+        <div class="modal fade" id="modal-user" tabindex="-1" role="dialog" aria-labelledby="editforwarddomain" aria-hidden="true">
+		    <div class="modal-dialog modal-sm">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h4 class="modal-title" id="">Close session for user</h4>
+		            </div>
+		            <div class="modal-body" id="contentmodaludp">
+		                <h4>Are you sure you want to log out this user?</h4>
+		                <h3 id="userlg"></h3>
+		                <input type="hidden" value="" id="userlogon">
+		            </div>
+
+		            <div class="modal-footer">
+		                <div class="col-md-12 col-sm-12 col-xs-12">
+		                    <button type="button" id="btn-updatemodal" class="btn btn-primary" onclick="return logonuser(1,'')">Yes</button>
+		                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- End Session logout modal for user panel -->
+
+        <div id="footer" class="clearfix sidebar-page right-sidebar-page col-lg-11">
+        <!-- Start #footer  -->
+	        <div class="col-lg-6">
+		        <p class="pull-left">
+		            Copyrights &copy; 2019 <a href="http://centos-webpanel.com/" class="color-blue strong" target="_blank">CWP Control WebPanel</a>. All rights reserved.
+		        </p>
+	    	</div>
+	    	<div class="col-lg-5">
+		        <p class="pull-right">
+		        	<button type="button" class="btn btn-success btn-block mr5 mb10">You are running CWPpro</button>		        </p>
+	    	</div>
+    	</div>
+    <!-- End #footer  -->
+    
+</div>
+<!-- / #wrapper -->
+<!-- Back to top -->
+<div id="back-to-top"><a href="#">Back to Top</a>
+</div>
+<!-- Javascripts -->
+<!-- Load pace first -->
+<!-- <script src="design/plugins/core/pace/pace.min.js"></script> -->
+<!-- Important javascript libs(put in all pages) -->
+<script src="design/js/libs/jquery-2.1.1.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="design/js/libs/jquery-2.1.1.min.js">\x3C/script>')
+</script>
+<script src="design/js/libs/jquery-ui.js"></script>
+<script>
+    window.jQuery || document.write('<script src="design/js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')
+</script>
+<script src="design/js/libs/jquery-migrate-1.2.1.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="design/js/libs/jquery-migrate-1.2.1.min.js">\x3C/script>')
+</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="design/js/libs/excanvas.min.js"></script>
+<script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<script type="text/javascript" src="design/js/libs/respond.min.js"></script>
+<![endif]-->
+<!-- Bootstrap plugins -->
+<script src="design/js/bootstrap/bootstrap.js"></script>
+<!-- Core plugins ( not remove ) -->
+<script src="design/js/libs/modernizr.custom.js"></script>
+<!-- Handle responsive view functions -->
+<script src="design/js/jRespond.min.js"></script>
+<!-- Custom scroll for sidebars,tables and etc. -->
+<script src="design/plugins/core/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="design/plugins/core/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+<!-- Remove click delay in touch -->
+<script src="design/plugins/core/fastclick/fastclick.js"></script>
+<!-- Increase jquery animation speed -->
+<script src="design/plugins/core/velocity/jquery.velocity.min.js"></script>
+<!-- Quick search plugin (fast search for many widgets) -->
+<script src="design/plugins/core/quicksearch/jquery.quicksearch.js"></script>
+<!-- Bootbox fast bootstrap modals -->
+<script src="design/plugins/ui/bootbox/bootbox.js"></script>
+<!-- Other plugins ( load only nessesary plugins for every page) -->
+<script src="design/plugins/charts/sparklines/jquery.sparkline.js"></script>
+<script src="design/js/jquery.supr.js"></script>
+<script src="design/js/main.js"></script>
+<script src="design/js/pages/blank.js"></script>
+
+<script src="design/js/bootstrap-notify.js"></script>
+<script src="design/plugins/ui/notify/jquery.gritter.js"></script>
+</body>
+</html>
+
+
+
+<!--  -->
+<!-- datatable css -->
+<link rel="stylesheet" href="design/3rdparty/datatables/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<style>
+/*#userTable thead tr th{
+    background: green;
+}*/
+.glyphicon1 {
+        cursor: pointer;
+        pointer-events: all;
+        float: left;
+        z-index: 99999999;
+        margin-right: 20px;
+        font-size: 1.7rem;
+        color: #999;
+    }
+  .glyphicon1.active{
+    color: dodgerblue;
+  }
+  .glyphicon2 {
+        cursor: pointer;
+        pointer-events: all;
+        float: left;
+        z-index: 99999999;
+        margin-right: 53px;
+        font-size: 1.7rem;
+    }
+     #password + .glyphicon {
+       cursor: pointer;
+       pointer-events: all;
+     }
+
+#example thead tr{
+    background-color: rgb(0,106,116);
+    color: white
+}
+#userTable_length div.selector, #userTable_length .selector, #userTable_length div.selector select{ width: 30% !important;  }
+#userTable td, #userTable th{ vertical-align:top;}
+table.dataTable thead th, table.dataTable thead td{
+    padding:10px;
+}
+div.dataTables_filter label{
+    float: left;
+    margin-left: 10px;
+    
+}
+.dataTables_wrapper .dt-buttons {
+  float:right;
+  margin-right: 10px;
+}
+.dt-buttons .buttons-csv{
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 1.5em;
+    padding: 0.5em 1em;
+    margin-left: 2px;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    *cursor: hand;
+    color: #333 !important;
+    border: 1px solid transparent;
+    border-radius: 2px;  
+    color: #333 !important;
+    border: 1px solid #979797;
+    background: linear-gradient(to bottom, white 0%, #dcdcdc 100%);
+}
+#userTable_filter{
+    float:left;
+    width: 80%;
+}
+.dataTables_wrapper .dataTables_filter input{
+    margin-left: 0px;
+}
+.showDiv{
+    display: none;
+}
+.number{
+        font-size: 20px;
+    font-weight: 700;
+    float: left;
+    width: 48%;
+}
+ #transparenciaNuevo
+{
+    position: fixed;
+    z-index:1000;
+    top: 0px;
+    left: 0px;
+    background: #f9f9f9; 
+    opacity: 0.7;
+    filter:Alpha(Opacity=80);
+    -moz-opacity: 0.90;
+    height:100%;
+    width:100%;
+    display:none;
+    z-index:900;
+    text-align:center;
+    vertical-align:middle;
+}
+#transparenciaMensajeNuevo
+{
+    position:absolute;
+    color:#000;
+    width:300px;
+    height:100px;
+    margin-top:-50px;
+    margin-left:-150px;
+    top:50%;
+    left:50%;
+    z-index:1001;
+    font-family:Arial;
+    font-weight:bold;
+    font-size:16px;
+}
+</style>
+
+
+<?php
+if ( !isset( $include_path ) )
+{
+    echo "invalid access";
+    exit( );
+}
+/*
+$mysql_result = mysqli_query($mysql_conn, 'SELECT mysql_pwd FROM settings');
+$row = mysqli_fetch_array($mysql_result);
+
+$rc4crypt = new rc4crypt( );
+$encoder = $rc4crypt->decrypt_passwd( $crypt_pwd, base64_decode($row['mysql_pwd']), 1 );
+*/
+
+if (isset($_GET['db_name'])){ $_GET['db_name'] = Security_Variable_GET($_GET['db_name']); }
+if (isset($_GET['username'])){ $_GET['username'] = Security_Variable_GET($_GET['username']); }
+if (isset($_GET['user_host'])){ $_GET['user_host'] = Security_Variable_GET($_GET['user_host']); }
+if (isset($_GET['del_user'])){ $_GET['del_user'] = Security_Variable_GET($_GET['del_user']); }
+if (isset($_GET['del_host'])){ $_GET['del_host'] = Security_Variable_GET($_GET['del_host']); }
+if (isset($_GET['drop_database'])){ $_GET['drop_database'] = Security_Variable_GET($_GET['drop_database']); }
+if (isset($_GET['check_o'])){ $_GET['check_o'] = Security_Variable_GET($_GET['check_o']); }
+if (isset($_GET['check_c'])){ $_GET['check_c'] = Security_Variable_GET($_GET['check_c']); }
+if (isset($_GET['check_r'])){ $_GET['check_r'] = Security_Variable_GET($_GET['check_r']); }
+if (isset($_GET['check_b'])){ $_GET['check_b'] = Security_Variable_GET($_GET['check_b']); }
+
+$pwd = "*";
+$database = "*";
+$user = "*";
+$r_pwd = mysqlroot_pwd();
+$host = "%";
+
+
+if (!isset($_GET["action"])){
+    $_GET["action"] = "list_databases_and_users";
+}
+$action= $_GET["action"];
+
+//MySQL Manager Menu
+echo "
+<div class='row>
+    <div class='col-lg-12'>
+        <ul class='nav nav-tabs'>
+            <li class='nav-item active'><a href='#1' class='nav-link' role ='tab' data-toggle='tab'>List Databases and Users</a></li>
+            <li class='nav-item'><a href='#list_users' class='nav-link' role ='tab' data-toggle='tab'><img src='{$design_path}img/start.png'> List Users</a></li>
+            <li class='nav-item'><a href='#list_grants' class='nav-link' role ='tab' data-toggle='tab'><img src='{$design_path}img/start.png'> List Permissions</a></li>
+            <li class='nav-item'><a href='#create_database_only' class='nav-link' role ='tab' data-toggle='tab'><img src='{$design_path}img/start.png'> Create Database</a></li>
+            <li class='nav-item'><a href='#create_database' class='nav-link' role ='tab' data-toggle='tab'><img src='{$design_path}img/start.png'> Create Database and User</a></li>
+            <li class='nav-item'><a href='#check_conf' class='nav-link' role ='tab' data-toggle='tab'><img src='{$design_path}img/start.png'> Security & Optimization Check</a></li>
+          </ul>
+    </div>
+    <br/>
+  ";
+// echo "
+//          <div class='tab-content '>
+//            <div role='tabpanel' class='tab-pane active' id='1'>1</div>
+//            <div role='tabpanel' class='tab-pane' id='2'>2</div>
+//            <div role='tabpanel' class='tab-pane' id='3'>3</div>
+//          </div>";
+
+echo"
+
+<table align='left' cellpadding='5' cellspacing='1' border='0' width='100%' class='table table-bordered'>
+    <thead>
+    <tr class='evenrowcolor'>
+        <th align='left'>
+            <a href='index.php?module=mysql_manager'><img src='{$design_path}img/start.png'> List Databases and Users</a> | 
+            <a href='index.php?module=mysql_manager&action=list_users'><img src='{$design_path}img/start.png'> List Users</a> | 
+            <a href='index.php?module=mysql_manager&action=list_grants'><img src='{$design_path}img/start.png'> List Permissions</a> | 
+            <a href='index.php?module=mysql_manager&action=create_database_only'><img src='{$design_path}img/add.png'> Create Database</a> | 
+            <a href='index.php?module=mysql_manager&action=create_database'><img src='{$design_path}img/add.png'> Create Database and User</a> |
+            <a href='index.php?module=mysql_manager&action=check_conf'><img src='{$design_path}img/start.png'> Security & Optimization Check</a>
+        </th>
+    </tr>
+    </thead>
+</table>
+<br><br><br>
+
+";
+
+if ($action == "check_conf"){
+    ssh_exec("chmod +x /usr/local/cwpsrv/htdocs/resources/conf/mysqltunner/mysqltuner.pl");
+    echo "<pre>" . ssh_exec("cd /usr/local/cwpsrv/htdocs/resources/conf/mysqltunner/; perl mysqltuner.pl") . "</pre>";
+}
+
+// make database only
+if ($action == "create_database_only"){
+    $mysql_result = query_multirows( $table = "user", "`id` != '' ORDER BY `username`" );
+    if  (!empty($_POST['ifpost'])){
+        if (!empty($_POST["db_name"]) && !empty($_POST["user_name"])){
+                ssh_exec("mysql --defaults-extra-file=/root/.my.cnf -e \"create database {$_POST['user_name']}_{$_POST['db_name']}\"");
+                echo "<b>Data Entered</b><br>";
+                echo "================================<br>";
+                echo "<b>Database:</b> {$_POST['user_name']}_{$_POST['db_name']}<br>";
+        }
+        else{
+            echo "Something is missing!<br>";
+        }
+    }
+    
+    echo "
+    <div role='tabpanel' class='tab-pane active' id='create_database_only'>
+    <div class='row'>
+        <div class='col-lg-offset-1 col-lg-8'>
+            <div class='panel panel-info toggle panelMove panelClose panelRefresh'>
+                <div class='panel-heading'>
+                    <h4 class='panel-title'> Create New Database</h4>
+                </div>
+                <div class='panel-body pt0 pb0'>
+                    <form class='form-horizontal group-border stripped' action='' method='post'>
+                        <input type='hidden' name='ifpost' size='0' value='createdb_only'>
+
+                        <div class='form-group'>
+                            <label class='col-lg-2 col-md-3 control-label' for=''>Select User</label>
+                            <div class='col-lg-10 col-md-9'>
+                                  <select name='user_name' class='form-control'>
+                                    <option value='root'>root</option>";
+                                    foreach ( $mysql_result as $singlerow_result ){
+                                        echo "<option value='{$singlerow_result['username']}'>{$singlerow_result['username']}</option>";
+                                        }
+                            echo "</select>
+
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-lg-2 col-md-3 control-label' for=''>Database Name:</label>
+                            <div class='col-lg-10 col-md-9'>
+                               <input type='text' name='db_name' value='' size='20' maxlength='30' class='form-control'> 
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                         <div class='col-lg-offset-3 col-lg-6'>
+                                <button type='submit' class='btn btn-info btn-block'>Create Database</button>
+                             </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    ";
+    // echo "
+    // <h3>Create New Database</h3>
+    // <form action='' method= 'post'>
+    // <input type='hidden' name='ifpost' size='0' value='createdb_only'>
+    // <table><tr><td>
+    //  <table align='center' cellpadding='5' cellspacing='1' border='0' width='100%' class='table table-bordered'>
+          
+    //        <tr class='oddrowcolor'>
+    //         <td colspan='1'>New Database for user:</td>
+    //         <td colspan='1'>
+    //         "; 
+    //         if ( !empty( $mysql_result ) ){
+    //              echo "<select name='user_name'>";
+    //              echo"<option value='root'>root</option>";
+    //              foreach ( $mysql_result as $singlerow_result ){
+    //                  echo "<option value='{$singlerow_result['username']}'>{$singlerow_result['username']}</option>";
+                        
+    //                  }
+    //              echo "</select></td></tr>";
+    //          }
+    //  echo "<td colspan='1'>Database Name:</td>
+    //         <td colspan='1'><input type='text' name='db_name' value='' size='20' maxlength='30'> </td>
+    //        </tr>
+              
+    //  </table>
+    // </td></tr>
+    // <tr><td>
+    // <br>
+    // <div class='form-group'>
+ //     <div class='col-lg-offset-3 col-lg-9'>
+    //      <button type='submit' class='btn btn-info'>Create Database</button>
+    //   </div>
+    // </div>
+    // </td></tr></table>
+    // </form>
+    // ";
+
+}
+//MySQL Functions
+// make database and add user and pwd for user
+if ($action == "create_database"){
+    $mysql_result = query_multirows( $table = "user", "`id` != '' ORDER BY `username`" );
+    if  (!empty($_POST['ifpost'])){
+        if (!empty($_POST["db_name"]) && !empty($_POST["user_name"]) && !empty($_POST["password1"]) && !empty($_POST["password2"])){
+            if ($_POST["password1"] == $_POST["password2"]){
+                $new_password = escapeshellarg($_POST['password1']);
+
+                /*
+                ssh_exec("mysql --defaults-extra-file=/root/.my.cnf -e \"create database {$_POST['user_name']}_{$_POST['db_name']}\"");
+                ssh_exec("mysql --defaults-extra-file=/root/.my.cnf -e \"GRANT ALL ON \`{$_POST['user_name']}\_{$_POST['db_name']}\` . * TO '{$_POST['user_name']}_{$_POST['db_name']}'@'localhost' IDENTIFIED BY {$new_password};\"");
+                ssh_exec("mysql --defaults-extra-file=/root/.my.cnf -e \"flush privileges;\"");
+                */
+                mysqli_query($mysql_conn, "create database {$_POST['user_name']}_{$_POST['db_name']}");
+                mysqli_query($mysql_conn, "GRANT ALL ON `{$_POST['user_name']}\_{$_POST['db_name']}` . * TO '{$_POST['user_name']}_{$_POST['db_name']}'@'localhost' IDENTIFIED BY {$new_password};");
+                mysqli_query($mysql_conn, "flush privileges;");
+
+                echo "<b>Data Entered</b><br>";
+                echo "================================<br>";
+                echo "<b>Database:</b> {$_POST['user_name']}_{$_POST['db_name']}<br>";
+                echo "<b>Username:</b> {$_POST['user_name']}_{$_POST['db_name']}<br>";
+                echo "<b>Password:</b> {$_POST['password1']}<br><br>";
+            }
+            else{
+                echo "Passwords do not match!<br>";
+            }
+        }
+        else{
+            echo "Something is missing!<br>";
+        }
+    }
+
+    echo "
+    <div role='tabpanel' class='tab-pane active' id='create_database'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            <div class='alert alert-info text-white'>
+                <strong class='text-white'>Create New Database (and user with same username)</strong>
+            </div>
+        </div>
+        <div class='col-lg-offset-1 col-lg-10'>
+            <div class='panel panel-info toggle panelMove panelClose panelRefresh'>
+                <div class='panel-heading'>
+                    <h4 class='panel-title'>Create New Database (and user with same username)</h4>
+                </div>
+                <div class='panel-body pt0 pb0'>
+                    <form class='form-horizontal group-border stripped' action='' method='post'>
+                        <input type='hidden' name='ifpost' size='0' value='createdb_and_user'>
+
+                        <div class='form-group'>
+                            <label class='col-lg-2 col-md-3 control-label' for=''>New Database for user</label>
+                            <div class='col-lg-10 col-md-9'>";
+                                if ( !empty( $mysql_result ) )
+                                {
+                                    echo "<select name='user_name' class='form-control'>";
+                                    echo"<option value='root'>root</option>";
+                                    foreach ( $mysql_result as $singlerow_result )
+                                    {
+                                        echo "<option value='{$singlerow_result['username']}'>{$singlerow_result['username']}</option>";
+                                        
+                                    }
+                                echo "</select>";
+                                }
+                                echo "
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-lg-2 col-md-3 control-label' for=''>Database Name:</label>
+                            <div class='col-lg-10 col-md-9'>
+                               <input type='text' name='db_name' value='' size='7' maxlength='7' class='form-control'>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-lg-2 col-md-3 control-label' for=''>Confirm New Password:</label>
+                            <div class='col-lg-10 col-md-9'>
+                               <input type='password' name='password1' value='".random_pwd(8)."' size='15' maxlength='20' class='form-control randomPassword' id='password'>
+                                   <i class='glyphicon glyphicon-eye-open form-control-feedback glyphicon1' id ='eye'></i>
+                                    <i onclick ='genPwd()' class='glyphicon glyphicon glyphicon-refresh form-control-feedback glyphicon2' id='glyphicon2'></i>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='col-lg-2 col-md-3 control-label' for=''>Confirm Password:</label>
+                            <div class='col-lg-10 col-md-9'>
+                               <input type='text' name='password2' value='' size='15' maxlength='20' class='form-control'>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                         <div class='col-lg-offset-3 col-lg-6'>
+                                <button type='submit' class='btn btn-info btn-block'>Create Database</button>
+                             </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    ";
+    
+    // echo "
+    // <h3>Create New Database (and user with same username)</h3>
+    // <form action='' method= 'post'>
+    // <input type='hidden' name='ifpost' size='0' value='createdb_and_user'>
+    // <table><tr><td>
+    //  <table align='center' cellpadding='5' cellspacing='1' border='0' width='100%' class='table table-bordered'>
+          
+    //        <tr class='oddrowcolor'>
+    //         <td colspan='1'>New Database for user:</td>
+    //         <td colspan='1'>
+    //         "; 
+    //         if ( !empty( $mysql_result ) ){
+    //              echo "<select name='user_name'>";
+    //              echo"<option value='root'>root</option>";
+    //              foreach ( $mysql_result as $singlerow_result ){
+    //                  echo "<option value='{$singlerow_result['username']}'>{$singlerow_result['username']}</option>";
+                        
+    //                  }
+    //              echo "</select></td>
+    //        </tr>";
+    //          }
+    //  echo "<tr class='oddrowcolor'>
+    //         <td colspan='1'>Database Name:</td>
+    //         <td colspan='1'> <input type='text' name='db_name' value='' size='7' maxlength='7'> </td>
+    //        </tr>
+              
+    //        <tr class='oddrowcolor'>
+    //         <td colspan='1'>Confirm New Password:</td>
+    //         <td colspan='1'><input type='text' name='password1' value='".random_pwd(8)."' size='15' maxlength='20'> (random generator)</td>
+    //        </tr>
+              
+    //        <tr class='oddrowcolor'>
+    //         <td colspan='1'>Confirm New Password:</td>
+    //         <td colspan='1'><input type='text' name='password2' value='' size='15' maxlength='20'></td>
+    //        </tr>
+    //  </table>
+    // </td></tr>
+    // <tr><td>
+    // <br>
+    // <div class='form-group'>
+    //   <div class='col-lg-offset-3 col-lg-9'>
+    //      <button type='submit' class='btn btn-info'>Create Database</button>
+    //   </div>
+    // </div>
+    // </td></tr></table>
+    // </form>
+    // ";
+
+}
+
+
+// make user for database 
+if ($action == "create_user_for_db"){
+    if ( !empty ($_GET["db_name"]) ){
+    
+        $split_db_name = preg_split("[_]", $_GET["db_name"]);
+        if ( !empty ($split_db_name[0]) ){
+            $cud_name = $split_db_name[0];
+        }
+        else {
+            echo "Error: Database username not defined!<br>";
+        }
+    
+        //Check post data
+        if  (!empty($_POST['ifpost'])){
+            if (!empty($_GET["db_name"]) && !empty($_POST["user_name"]) && !empty($_POST["password1"]) && !empty($_POST["password2"]) &&!empty($_POST["new_host"])){
+                if ($_POST["password1"] == $_POST["password2"]){
+                    $new_password = escapeshellarg($_POST['password1']);
+
+                    /*
+                    ssh_exec("mysql --defaults-extra-file=/root/.my.cnf -e \"GRANT ALL ON \`{$split_db_name[0]}\_{$split_db_name[1]}\` . * TO '{$split_db_name[0]}_{$_POST['user_name']}'@'{$_POST["new_host"]}' IDENTIFIED BY {$new_password};\"");
+                    ssh_exec("mysql --defaults-extra-file=/root/.my.cnf -e \"flush privileges;\"");
+                    */
+
+                    mysqli_query($mysql_conn, "GRANT ALL ON `{$split_db_name[0]}\_{$split_db_name[1]}` . * TO '{$split_db_name[0]}_{$_POST['user_name']}'@'{$_POST["new_host"]}' IDENTIFIED BY {$new_password};");
+                    mysqli_query($mysql_conn, "flush privileges;");
+
+                    echo "<b>Data Entered</b><br>";
+                    echo "================================<br>";
+                    echo "<b>Database:</b> {$_GET['db_name']}<br>";
+                    echo "<b>Username:</b> {$split_db_name[0]}_{$_POST['user_name']}<br>";
+                    echo "<b>Host:</b> {$_POST['new_host']}<br>";
+                    echo "<b>Password:</b> {$_POST['password1']}<br><br>";
+                }
+                else{
+                    echo "Passwords do not match!<br>";
+                }
+            }
+            else{
+                echo "Something is missing! <br>";
+            }
+        }
+        
+        //$mysql_result = query_multirows( $table = "user", "`id` != ''" );
+        
+        echo "
+        <h3>Add New User for Database: {$_GET["db_name"]}</h3>
+        <form action='' method= 'post'>
+        <input type='hidden' name='ifpost' size='0' value='user_for_db'>
+        <table><tr><td>
+            <table align='center' cellpadding='5' cellspacing='1' border='0' width='100%' class='table table-bordered '>
+              
+                  <tr class='oddrowcolor'>
+                   <td colspan='1'>Username:</td>
+                   <td colspan='1'>{$cud_name}_<input type='text' name='user_name' value='' size='10' maxlength='7'> (max 7 characters)</td>
+                  </tr>
+                  
+                  <tr class='oddrowcolor'>
+                   <td colspan='1'>Host:</td>
+                   <td colspan='1'>
+                        <select name='new_host'>
+                            <option value='localhost'>localhost</option>
+                            <option value='%'>% (Any Host)</option>
+                        </select>
+                   </td>
+                  </tr>
+                  
+                  <tr class='oddrowcolor'>
+                   <td colspan='1'>Confirm New Password:</td>
+                   <td colspan='1'><input type='text' name='password1' value='".random_pwd(8)."' size='15' maxlength='20'> (random generator)</td>
+                  </tr>
+                  
+                  <tr class='oddrowcolor'>
+                   <td colspan='1'>Confirm New Password:</td>
+                   <td colspan='1'><input type='text' name='password2' value='' size='15' maxlength='20'></td>
+                  </tr>
+            </table>
+        </td></tr>
+        <tr><td>
+        <br>
+        <div class='form-group'>
+             <div class='col-lg-offset-3 col-lg-9'>
+                <button type='submit' class='btn btn-info'>Create User</button>
+             </div>
+        </div>
+        </td></tr></table>
+        </form>
+        ";
+        
+    }
+    else {
+        echo "Username is empty!<br>";
+    }
+}
+
+// edit user password
+if ($action == "edit_user_passwd"){
+    if ( !empty ($_GET["username"]) && !empty($_GET["user_host"])){
+
+
+        //Check post data
+        if  (!empty($_POST['ifpost'])){
+            if ($_POST['ifpost'] == "change_user_password"){
+                if (!empty($_POST["username"]) && !empty($_POST["password1"]) && !empty($_POST["password2"]) &&!empty($_POST["user_host"])){
+                    if ($_POST["password1"] == $_POST["password2"]){
+                        $new_password = escapeshellarg($_POST['password1']);
+                        //ssh_exec("mysql --defaults-extra-file=/root/.my.cnf -e \"GRANT ALL ON \`{$split_db_name[0]}\_{$split_db_name[1]}\` . * TO '{$split_db_name[0]}_{$_POST['user_name']}'@'{$_POST["new_host"]}' IDENTIFIED BY '{$new_password}';\"");
+                        ssh_exec("mysql --defaults-extra-file=/root/.my.cnf -e \"SET PASSWORD FOR '".$_POST["username"]."'@'".$_POST["user_host"]."' = PASSWORD(".$new_password.");\"");
+                        ssh_exec("mysql --defaults-extra-file=/root/.my.cnf -e \"flush privileges;\"");
+                        echo "<b>Data Entered</b><br>";
+                        echo "================================<br>";
+                        echo "<b>Username:</b> {$_POST["username"]} [{$_POST["user_host"]}]<br>";
+                        echo "<b>New Password:</b> {$new_password}<br><br>";
+                    }
+                    else{
+                        echo "Passwords do not match!<br>";
+                    }
+                }
+                else{
+                    echo "Something is missing! <br>";
+                }
+            }           
+        }
+    
+        $check_username = ssh_exec ("mysql --defaults-extra-file=/root/.my.cnf -e \"SELECT User,host FROM mysql.user WHERE User = '".$_GET["username"]."' AND host  = '".$_GET["user_host"]."'\" -B");
+
+        if (!empty($check_username)){
+
+            echo "
+            <h3>Change password for MySQL user : {$_GET["username"]} [{$_GET["user_host"]}]</h3>
+            <form action='' method= 'post'>
+            <input type='hidden' name='ifpost' size='0' value='change_user_password'>
+            <input type='hidden' name='username' size='0' value='{$_GET["username"]}'>
+            <input type='hidden' name='user_host' size='0' value='{$_GET["user_host"]}'>
+            <table><tr><td>
+                <table align='center' cellpadding='5' cellspacing='1' border='0' width='100%' class='table table-bordered table-hover'>
+                  
+                      <tr class='oddrowcolor'>
+                       <td colspan='1'>Username:</td>
+                       <td colspan='1'>{$_GET["username"]}</td>
+                      </tr> 
+                      <tr class='oddrowcolor'>
+                       <td colspan='1'>Host:</td>
+                       <td colspan='1'>{$_GET["user_host"]}</td>
+                      </tr>               
+                      
+                      <tr class='oddrowcolor'>
+                       <td colspan='1'>Enter New Password:</td>
+                       <td colspan='1'><input type='text' name='password1' value='".random_pwd(8)."' size='15' maxlength='20'> (random generator)</td>
+                      </tr>
+                      
+                      <tr class='oddrowcolor'>
+                       <td colspan='1'>Confirm New Password:</td>
+                       <td colspan='1'><input type='text' name='password2' value='' size='15' maxlength='20'></td>
+                      </tr>
+                </table>
+            </td></tr>
+            <tr><td>
+            <br>
+            <div class='form-group'>
+                 <div class='col-lg-offset-3 col-lg-9'>
+                    <button type='submit' class='btn btn-info'>Change Password</button>
+                 </div>
+            </div>
+            </td></tr></table>
+            </form>
+            ";
+            
+        }
+        else {
+            echo "Username {$_GET["username"]} with host {$_GET["user_host"]} not found in mysql.user table!<br>";
+        }
+    }
+    else {
+        echo "Missing username or host for user!<br>";
+    }
+}
+
+// list all users FINISHED
+if ($action == "list_users"){
+
+    if (!empty($user)){
+        echo "
+    <div class='row'>
+        <div class='col-lg-12'>
+            <div class='panel panel-info toggle panelMove panelClose panelRefresh'>
+                <div class='panel-heading'>
+                    <h4 class='panel-title'> List of MySQL users</h4>
+                </div>
+                <div class='panel-body pt0 pb0'>
+                   <a href='index.php?module=mysql_manager&action=create_database' class='btn btn-success btn-sm pull-right' style='margin-bottom: 16px; margin-top:16px; margin-left: 13px;'> <i class='fa fa-plus'> </i> Create Database and User</a>
+                   <table align='left' cellpadding='5' cellspacing='1' border='0' width='100%' class='table table-bordered' id ='example'>
+            <thead><tr class='evenrowcolor'>
+                   <th colspan='1' align='left'>User</th>
+                   <th colspan='1' align='left'>Host</th>
+                </tr></thead>";
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"SELECT User,host FROM mysql.user\" -B",$output);
+        $start_from = 1;
+            while (!empty($output[$start_from])){
+                $split_result = preg_split ("/[\s]+/", $output[$start_from]);
+                echo "<tr class='oddrowcolor'><td>{$split_result[0]} 
+                [<a href='index.php?module=mysql_manager&action=edit_user_passwd&username={$split_result[0]}&user_host={$split_result[1]}' title='Change Password'>P</a>]
+                <a href='index.php?module=mysql_manager&del_user={$split_result[0]}&del_host={$split_result[1]}' onclick=\"return confirm('Are you sure you want to delete user: {$split_result[0]} ?');\"><img src='{$design_path}img/delete.png' title='Delete user: {$split_result[0]}'></a></td><td> {$split_result[1]} </td></tr>";
+                $start_from++;
+            }
+        echo "</table>
+
+                </div>
+            </div>
+        </div>
+    </div>";
+
+            
+    }
+}
+
+//MySQL Grants
+if ($action == "list_grants"){
+
+    if(!file_exists("/usr/bin/pt-show-grants")){
+        ssh_exec("yum -y install perl-Time-HiRes perl-IO-Socket-SSL perl-TermReadKey perl-DBD-MySQL");
+        ssh_exec("rpm -Uvh http://dl1.centos-webpanel.com/files/mysql/percona-toolkit.rpm");
+    }
+    
+    if(file_exists("/usr/bin/pt-show-grants")){
+        echo "<pre>".ssh_exec("/usr/bin/pt-show-grants --defaults-file=/root/.my.cnf 2>&1")."</pre>";
+    }
+}
+
+// all databases and list all users that have access to database
+if ($action == "list_databases_and_users"){
+    
+    // drop user
+    if (!empty($_GET['del_user']) and !empty($_GET['del_host'])){
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"DROP USER '{$_GET['del_user']}'@'{$_GET['del_host']}'\"");
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"flush privileges;\"");
+        echo "<b>Deleted user: {$_GET['del_user']} host: {$_GET['del_host']}</b><br><br>";
+    }
+    
+    // drop database 
+    if (!empty($_GET['drop_database'])){
+            exec("mysql --defaults-extra-file=/root/.my.cnf -e \"DROP DATABASE {$_GET['drop_database']}\"");
+            echo "<b>Deleted database: {$_GET['drop_database']}</b><br><br>";
+    }
+
+    // mysqlcheck 
+    if (!empty($_GET['check_o'])){      
+        echo "<pre>".ssh_exec("mysqlcheck --defaults-extra-file=/root/.my.cnf -o {$_GET['check_o']} 2>&1")."</pre>";
+    }
+    if (!empty($_GET['check_c'])){      
+        echo "<pre>".ssh_exec("mysqlcheck --defaults-extra-file=/root/.my.cnf -c {$_GET['check_c']} 2>&1")."</pre>";
+    }
+    if (!empty($_GET['check_r'])){      
+        echo "<pre>".ssh_exec("mysqlcheck --defaults-extra-file=/root/.my.cnf -r {$_GET['check_r']} 2>&1")."</pre>";
+    }
+
+    if (!empty($_GET['check_b'])){
+        ssh_exec("mkdir -p /backup/mysql/user");
+        $file_timestamp = date("Y-m-d_H-i");
+        $file_name = "{$_GET['check_b']}_{$file_timestamp}.sql.gz";
+        echo "<pre>".ssh_exec("mysqldump --defaults-extra-file=/root/.my.cnf {$_GET['check_b']}| gzip > '/backup/mysql/user/{$file_name}'")."</pre>";
+        $file_info = "/backup/mysql/user/{$file_name}";
+        $file_size = filesize("/backup/mysql/user/{$file_name}");
+        $file_size = format_fileSize($file_size);
+        echo "<b>Backup File:</b>{$file_info} <b>Size:</b>{$file_size}";
+    }
+    
+    echo "<h3>List of MySQL databases and users that have access to database</h3>";
+    echo " ";
+    echo "<b>%</b> - Any IP can access database <br>";
+    echo "<b>localhost</b> - Access to database is allowed only from this server <br><br>";
+    echo "<a href='index.php?module=mysql_manager&action=create_database' class='btn btn-primary btn-sm pull-right' style='margin-bottom: 16px; margin-left: 13px;'> <i class='fa fa-plus'> </i> Create Database and User</a>";
+    echo "<a href='index.php?module=mysql_manager&action=create_database_only' class='btn btn-primary btn-sm pull-right' style='margin-bottom: 16px; margin-left: 13px;'><i class='fa fa-plus'> </i> Create Database</a>";
+    echo '<table align="left" cellpadding="5" cellspacing="1" border="0" width="100%" class="table table-bordered table-hover" id="example">';
+    echo "<thead><tr class='evenrowcolor'>
+           <th colspan='1' align='left'>Database</th>
+           <th colspan='1' align='left'>User [ Host ]</th>
+           <th colspan='1' align='left'>Add User</th>
+        </tr></thead>";
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"SHOW DATABASES\" -B",$output);
+        $start_from = 1;
+            while (!empty($output[$start_from])){
+            echo "<tr class='oddrowcolor'>";
+                $list_users = $output[$start_from];
+                $dbname_replace = $output[$start_from];
+                $dbname_replace = preg_replace("[_]", '\\\_',$dbname_replace,1);
+                //echo $dbname_replace."<br>";
+                exec("mysql --defaults-extra-file=/root/.my.cnf -e \"SELECT user,host from mysql.db where db = '$dbname_replace';\" -B",$output_user);
+                $start_from_user = 1;
+                echo "<td>{$output[$start_from]} <a href='index.php?module=mysql_manager&drop_database={$output[$start_from]}' onclick=\"return confirm('Are you sure you want to delete database: {$output[$start_from]} ?');\"><img src='{$design_path}img/delete.png' title='Delete database: {$output[$start_from]}'></a>
+                [<a title='OPTIMIZE: Optimize table' href='index.php?module=mysql_manager&check_o={$output[$start_from]}'>O</a>]
+                [<a title='CHECK: Check table for errors' href='index.php?module=mysql_manager&check_c={$output[$start_from]}'>C</a>]
+                [<a title='REPAIR: Can fix almost anything except unique keys that are not unique.' href='index.php?module=mysql_manager&check_r={$output[$start_from]}'>R</a>]
+                [<a title='BACKUP: Create backup of database in /backup/mysql/user folder' href='index.php?module=mysql_manager&check_b={$output[$start_from]}'>B</a>]
+                </td><td>";
+                
+                    while (!empty($output_user[$start_from_user])){
+                        $split_result = preg_split ("/[\s]+/", $output_user[$start_from_user]);
+                        echo "{$split_result[0]}";
+                        if (!empty($split_result[1])){
+                            echo " [ {$split_result[1]} ] 
+                            [<a href='index.php?module=mysql_manager&action=edit_user_passwd&username={$split_result[0]}&user_host={$split_result[1]}' title='Change Password'>P</a>]
+                            <a href='index.php?module=mysql_manager&del_user={$split_result[0]}&del_host={$split_result[1]}' onclick=\"return confirm('Are you sure you want to delete user: {$split_result[0]} ?');\"><img src='{$design_path}img/delete.png' title='Delete user: {$split_result[0]}'></a> 
+                            ";
+                        }
+                        echo "<br>";
+                        //echo "{$output_user[$start_from_user]} <br>";
+                        $start_from_user++;
+                    }
+                    
+                    unset($output_user);
+                echo "</td>";
+                //echo "<td>Edit</td>";
+                echo "<td><a href='index.php?module=mysql_manager&action=create_user_for_db&db_name={$output[$start_from]}' class='btn btn-info text-white' ><i class='fa fa-plus'> </i> Add New User</a></td>";
+                // echo "<td><img src='{$design_path}img/add.png'> <a href='index.php?module=mysql_manager&action=create_user_for_db&db_name={$output[$start_from]}'>Add New User</a></td>";
+                $start_from++;
+            echo "</tr>";
+            }
+            unset($output);
+    echo "</table>";
+}
+
+
+
+
+//not using
+
+/*
+
+// check if mysql server is running (izbacuje pid od servera)
+if ($action == "check_mysqlserver"){
+        exec("/etc/init.d/mysqld status",$output);
+        print_r($output[0]);
+}
+
+
+// list all users that have access to database
+if ($action == "list_users_access"){
+    if (!empty($user)){
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"SELECT user,host from mysql.db where db = 'root\_webpanel';\" -B",$output);
+        $start_from = 1;
+            while (!empty($output[$start_from])){
+                echo "{$output[$start_from]} <br>";
+                $start_from++;
+            }
+    }
+}
+*/
+
+/*
+// list user FINISHED
+if ($action == "list_user"){
+    if (!empty($user)){
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"select user from mysql.user where user='{$user}'\"",$output);
+        print_r($output);
+    }
+}
+*/
+
+/*
+// make database only FINISHED
+if ($action == "database_only"){
+    if (!empty($database)){
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"create database {$database}\"");
+    }
+}
+
+
+// make user only for database with pwd
+if ($action == "create_user"){
+    if (!empty($database) && !empty($user) && !empty($pwd)){
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"GRANT ALL ON {$database}.* TO '{$user}'@'{$host}' IDENTIFIED BY '{$pwd}';\"");
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"GRANT ALL ON {$database}.* TO '{$user}'@'localhost' IDENTIFIED BY '{$pwd}';\"");
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"flush privileges;\"");
+    }
+}
+
+
+// drop database FINISHED
+if ($action == "drop_database"){
+    if (!empty($database)){
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"DROP DATABASE {$database}\"");
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"flush privileges;\"");
+    }
+}
+
+
+// drop user  FINISHED
+if ($action == "drop_user"){
+    if (!empty($user)){
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"DROP USER '{$user}'@'{$host}'\"");
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"DROP USER '{$user}'@'localhost'\"");
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"flush privileges;\"");
+    }
+}
+
+
+// change user password FINISHED
+if ($action == "change_pwd"){
+    if (!empty($user) && !empty($pwd)){
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"SET PASSWORD FOR '{$user}'@'{$host}' = PASSWORD('{$pwd}');\"");
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"SET PASSWORD FOR '{$user}'@'localhost' = PASSWORD('{$pwd}');\"");
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"flush privileges;\"");
+    }
+}
+
+// list database FINISHED
+if ($action == "list_database"){
+    if (!empty($database)){
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"SHOW DATABASES LIKE '{$database}'\"",$output);
+        print_r($output[1]);
+    }
+}
+
+// list databases FINISHED
+if ($action == "list_databases"){
+    if (!empty($database)){
+        exec("mysql --defaults-extra-file=/root/.my.cnf -e \"SHOW DATABASES\" -B",$output);
+        //print_r($output);
+        $start_from = 1;
+            while (!empty($output[$start_from])){
+                echo "{$output[$start_from]} <br>";
+                $start_from++;
+            }
+    }
+}
+
+*/
+unset( $rc4crypt );
+
+
+?>
+
+    <script type="text/javascript" src="design/js/jquery.supr.js"></script>
+    <script type="text/javascript" src="design/3rdparty/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="design/3rdparty/datatables/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="design/3rdparty/datatables/js/jszip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="design/3rdparty/datatables/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hideshowpassword/2.0.8/hideShowPassword.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#example').DataTable();
+    } );
+
+    // show change icon color and change input type
+    var pwd = document.getElementById('password');
+    var eye = document.getElementById('eye');
+    eye.addEventListener('click', togglePass);
+
+    function togglePass()
+    {
+        eye.classList.toggle('active');
+        (pwd.type == 'password') ? pwd.type = 'text' : pwd.type = 'password';
+    }
+
+// refresh the password
+    function genPwd(){
+        var pwd = document.getElementById('password');
+        var result = generatepass(8);
+        pwd.value = result;
+    }
+
+    function generatepass(plength){
+    var keylist="abcdefghijklmnopqrstuvwxyz123456789";
+    temp='';
+    for (i=0;i<plength;i++)
+    temp+=keylist.charAt(Math.floor(Math.random()*keylist.length));
+    return temp;
+    }
+
+    
+    // function populateform(enterlength){
+    // document.pgenerate.output.value=generatepass(enterlength)
+    // }
+//  var table='';
+//   var jq = $.noConflict();
+//   jq(document).ready(function(){
+//  table = jq('#userTable').DataTable( {
+//     "processing": true,
+//      "bProcessing": true, 
+//          "bServerSide": true,
+//          'iDisplayLength': 20,       
+//           "ajax": {
+//                 "url": "loader_ajax.php\?ajax=mysql_manager",
+//                 "type": "GET",
+//                 "data": {
+//                   tipo: function() { 
+//                     var test='';
+//                     jq('input[name="tipoCount"]').each(function(){                        
+//                         if(jq(this).prop("checked")){
+//                            test=jq(this).val();
+//                         }
+//                     });
+//                     return test
+//                     }
+//                 }
+//                 },
+//            dom: 'frlBtip',
+//         buttons: [
+//             {
+//                 extend: 'csvHtml5',
+//                 text: 'Export to Csv',
+//                 exportOptions: {
+//                     columns: [0, 1, 2, 3, 4, 5,6 ]
+
+//                 }
+//             }
+//         ],
+//         columnDefs: [ { orderable: false, targets: [5,6,7] } ],
+//         responsive: true,
+//         "initComplete": function(settings, json) {
+//             $(".tip").tooltip({placement: 'top', container: 'body'});
+//           }
+//  } );
+//  jq('input[name="tipoCount"]').change(function() {
+//         table.ajax.reload( function ( json ) {
+//             $(".tip").tooltip({placement: 'top', container: 'body'});
+//         } );
+//     });
+//     jq('#search_table').on( 'keyup', function () {
+//         table.search( this.value ).draw();
+//     } );
+//     jq("#userTable_filter").css("width","72%");
+//     jq("#userTable_filter").html("");
+//     jq("#searchdata").prependTo("#userTable_filter");
+//     jq("#userTable_length select[name='userTable_length']").css("padding","5px");
+//     $(".tip").tooltip({placement: 'top', container: 'body'});
+// } );
+</script>

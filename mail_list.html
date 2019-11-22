@@ -1,0 +1,1249 @@
+<!doctype html>
+<!--[if lt IE 8]><html class="no-js lt-ie8"> <![endif]-->
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>CWP7pro.admin [abdulrasheed.cwp.dev.centos-webpanel.info
+]</title>
+    <!-- Mobile specific metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Force IE9 to render in normal mode -->
+    <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+    <meta name="author" content="" />
+    <meta name="description" content="CentOS Web Panel [CWP] - Free Control Panel for managing linux servers." />
+    <meta name="keywords" content="" />
+    <meta name="application-name" content="" />
+    <!-- Import google fonts - Heading first/ text second -->
+    <link href="design/css/fonts/opensans/v15/opensans_400-700.css" rel="stylesheet" type="text/css">
+    <link href="design/css/fonts/droidsans/v8/droidsans_400-700.css" rel="stylesheet" type="text/css">
+    <!-- Css files -->
+    <!-- Icons -->
+    <link href="design/css/icons.css" rel="stylesheet" />
+    <!-- Bootstrap stylesheets (included template modifications) -->
+    <link href="design/css/bootstrap.css" rel="stylesheet" />
+    <!-- Plugins stylesheets (all plugin custom css) -->
+    <link href="design/css/plugins.css" rel="stylesheet" />
+    <!-- Main stylesheets (template main css file) -->
+    <link href="design/css/main.css" rel="stylesheet" />
+    <!-- Custom stylesheets ( Put your own changes here ) -->
+    <link href="design/css/custom.css" rel="stylesheet" />
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="design/img/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="design/img/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="design/img/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="design/img/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="icon" href="design/img/ico/favicon.ico" type="image/png">
+    <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+    <meta name="msapplication-TileColor" content="#3399cc" />
+
+    <!-- From OLD CWP -->
+	<script language="javascript" src="design/img/js.php" type="text/javascript"></script>
+	<script type="text/javascript">
+var si_counter = null;
+$(document).ready(function(){
+$.ajaxSetup({ cache: false }); 
+si_counter = setInterval(function() {
+    $("#div_load").load("loader.php?func=get_load");
+	$("#div_topstats").load("loader.php?func=get_topstats");
+	$("#div_top_short").load("loader.php?func=get_top_short")
+	$("#div_mysql_process").load("loader.php?func=get_mysql_process");
+	$("#div_httpd_fullstatus").load("loader.php?func=get_httpd_fullstatus");
+	$("#div_netstat_port").load("loader.php?func=get_netstat_port");
+	
+
+}, 5000);
+});
+</script>
+
+<script type="text/javascript">
+$(window).load(function(){
+	$("#div_cl_topstats").load("loader.php?func=get_cl_topstats");
+    $("#div_aplication_version").load("loader.php?func=get_aplication_version");
+	$("#div_system_stats").load("loader.php?func=get_system_stats");
+	$("#div_system_info").load("loader.php?func=get_system_info");
+	$("#div_disk_info").load("loader.php?func=get_disk_info");
+	$("#div_cwp_info").load("loader.php?func=get_cwp_info");
+	$("#div_services_status").load("loader.php?func=get_services_status");
+});
+</script>
+
+<script type="text/javascript">
+function removeAlert(){
+	$.get("loader.php?func=removeMessage&message_id="+ arguments[0]);
+	return false;
+}
+</script>
+</head>
+
+<body>
+<!--[if lt IE 9]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<!-- .#header -->        
+    <div id="header">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.php"> CWP7pro.<span class="slogan">admin</span></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon16 icomoon-icon-arrow-4"></span>
+                </button>
+            </div> 
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="index.php"><span class="icon16 icomoon-icon-screen-2"></span> <span class="txt">Dashboard</span></a>
+                    </li>
+					
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="icon16 icomoon-icon-screen-2"></i><span class="txt"> Terminal</span>
+                                <b class="caret"></b>
+                            </a>
+							<ul class="dropdown-menu left dropdown-form template-settings">
+                                <li class="menu">
+                                    <ul role="menu">
+                                        <li><a href="console.php" target="_blank"><i class="icon16 icomoon-icon-screen-2"></i>Simple Terminal</a></li>
+                                        <li><a href="terminal.php" target="_blank"><i class="icon16 icomoon-icon-screen-2"></i>CWPpro Terminal</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li><li class="inactive">
+							<a target="_blank" href="fileManager2.php"><span class="icon16 silk-icon-folder"></span> <span class="txt">FileManager</span></a>
+						</li>                    
+                </ul>
+              
+                <ul class="nav navbar-right usernav">
+					
+
+					<li class="inactive">
+                            <a target='_blank' href="http://centos-webpanel.com/support-services"><span class="icon16 icomoon-icon-question-5"></span> <span class="txt">Support</span></a>
+                    </li>
+
+                    <li class="inactive">
+                            <a href="index.php?module=notifications_list">
+
+                            <span class="icon16 icomoon-icon-bell"></span> <span class="notification">3</span></a>
+                    </li>
+					
+					<li class="active"><a href="index.php?module=rootpwd"><span class="icon16 wpzoom-user-2"></span> <span class="txt">root</span></a> </li>
+								
+                    <li>
+						<a href="/login/index.php?logout=yes">
+						<span class="icon16 icomoon-icon-exit"></span>
+						<span class="txt"> Logout</span></a>
+					</li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </nav><!-- /navbar --> 
+
+    </div><!-- End #header -->
+
+    <div id="wrapper">
+        <!--Sidebar background-->
+        <div id="sidebarbg"></div>
+        <!--Sidebar content-->
+        <div id="sidebar">
+
+            <div class="shortcuts">
+                <ul>
+                    <li>
+					<a href='index.php?load=update' title='Load Averages [Enable/Disable]' class='tip'><span class='icon24 icomoon-icon-database'></span></a> Load: <span id='div_load'>Loading...</span>					</li>
+
+                </ul>
+            </div><!-- End search -->            
+
+            <div class="sidenav">
+
+                <div class="sidebar-widget mb0">
+                    <h5 class="title mb0" >Navigation</h5>
+                </div><!-- End .sidenav-widget -->
+
+                <div class="mainnav">
+    <input id="myInput" type="text" placeholder="Search.." style="width:100%;" autofocus>
+    <br>
+    <ul id="myList">
+        <li class="menup"><a href="index.php?"><span class="icon16 icomoon-icon-home-2"></span>Dashboard</a></li>						
+	 	
+		<li class="menup " id="mn-1"><a href="#" id="mn-1cond" class=""><span class="icon16 icomoon-icon-tools"></span>CWP Settings</a>
+            <ul class="sub "    id="mn-1-sub">
+				<li><a href="index.php?module=settings"><span class="icon16 icomoon-icon-arrow-right-3"></span>Edit Settings</a></li>
+                
+				<li><a href="index.php?module=file_editor&file=/etc/sysconfig/selinux"><span class="icon16 icomoon-icon-arrow-right-3"></span>SELinux</a></li>				<li><a href="index.php?module=backup_manager2"><span class="icon16 icomoon-icon-arrow-right-3"></span>NEW Backup (beta)</a></li>
+                <li><a href="index.php?module=backups"><span class="icon16 icomoon-icon-arrow-right-3"></span>Backup Configuration</a></li>
+				<li><a href="index.php?module=restore_backups"><span class="icon16 icomoon-icon-arrow-right-3"></span>Restore Backup</a></li>
+				<li><a href="index.php?module=webpanel_addons"><span class="icon16 icomoon-icon-arrow-right-3"></span>CWP Addons</a></li>
+				<li><a target="_blank" href="http://forum.centos-webpanel.com/"><span class="icon16 icomoon-icon-arrow-right-3"></span>Support Forum</a></li>
+				<li><a target="_blank" href="http://wiki.centos-webpanel.com/"><span class="icon16 icomoon-icon-arrow-right-3"></span>CWP WIKI</a></li>
+				<li><a href="index.php?module=yum_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>Yum Manager</a></li>
+				<li><a href="index.php?module=reboot_srv"><span class="icon16 icomoon-icon-arrow-right-3"></span>Reboot Server</a></li>				
+				<li><a href="index.php?module=admin_apis"><span class="icon16 icomoon-icon-arrow-right-3"></span>API Manager</a></li>
+
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-2"><a href="#" id="mn-2cond"><span class="icon16 wpzoom-server"></span>Server Settings</a>
+            <ul class="sub "   id="mn-2-sub">
+                <li><a href="index.php?module=crontab"><span class="icon16 icomoon-icon-arrow-right-3"></span>Crontab for root</a></li>
+                <li><a href="index.php?module=crons"><span class="icon16 icomoon-icon-arrow-right-3"></span>Crontab for users</a></li>
+				<li><a href="index.php?module=rootpwd"><span class="icon16 icomoon-icon-arrow-right-3"></span>Change Root Password</a></li>
+				<li><a href="index.php?module=ssh_KeyGenerator"><span class="icon16 icomoon-icon-arrow-right-3"></span>SSH Key Generator</a></li>
+				<li><a href="index.php?module=date_time"><span class="icon16 icomoon-icon-arrow-right-3"></span>Change Date & Time</a></li>
+				<li><a href="index.php?module=change_hostname"><span class="icon16 icomoon-icon-arrow-right-3"></span>Change Hostname</a></li>
+				<li><a href="index.php?module=quota_settings"><span class="icon16 icomoon-icon-arrow-right-3"></span>Disk Quota</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-3"><a href="#" id="mn-3cond"><span class="icon16 icomoon-icon-quill-2"></span>WebServer Settings</a>
+            <ul class="sub "     id="mn-3-sub">
+                <li><a href="index.php?module=WebServers_manage"><span class="icon16 icomoon-icon-arrow-right-3"></span>Select WebServers</a></li>
+                <li><a href="index.php?module=WebServers_conf"><span class="icon16 icomoon-icon-arrow-right-3"></span>WebServers Main Conf</a></li>
+                <li><a href="index.php?module=WebServers_domain"><span class="icon16 icomoon-icon-arrow-right-3"></span>WebServers Domain Conf</a></li>
+                <li><a href="index.php?module=WebServers_tpl_editor"><span class="icon16 icomoon-icon-arrow-right-3"></span>WebServers Template Editor</a></li>
+                <li><a href="index.php?module=WebServers_conf_editor"><span class="icon16 icomoon-icon-arrow-right-3"></span>WebServers Conf Editor</a></li>
+                				<li><a href="index.php?module=httpd_fullstatus"><span class="icon16 icomoon-icon-arrow-right-3"></span>Apache Status</a></li>
+				<li><a href="index.php?module=apache_builder"><span class="icon16 icomoon-icon-arrow-right-3"></span>Apache Re-Build</a></li>
+				<li><a href="index.php?module=system_redirects"><span class="icon16 icomoon-icon-arrow-right-3"></span>Apache Redirects</a></li>
+				<li><a href="index.php?module=ssl_certificate"><span class="icon16 icomoon-icon-arrow-right-3"></span>SSL Certificates</a></li>
+
+					
+				<li><a href="index.php?module=tomcat"><span class="icon16 icomoon-icon-arrow-right-3"></span>Tomcat Manager</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-4"><a href="#" id="mn-4cond"><span class="icon16 icomoon-icon-cog"></span>PHP Settings</a>
+            <ul class="sub "     id="mn-4-sub">
+				<li><a href="index.php?module=php_info"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP info</a></li>
+				<li><a href="index.php?module=php_short_info"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP short info</a></li>
+				<li><a href="index.php?module=php_addons"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP Addons</a></li>
+                <li><a href="index.php?module=php_switch_v2"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP Version Switcher</a></li>
+				<li><a href="index.php?module=php_selector2"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP Selector 2 (NEW)</a></li>
+				<li><a href="index.php?module=php_selector3"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP-FPM Selector (NEW)</a></li>
+				<li><a href="index.php?module=php_pecl"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP PECL extensions</a></li>
+				<li><a href="index.php?module=phpini_editor"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP Simple Editor</a></li>
+				<li><a href="index.php?module=file_editor&file=/usr/local/php/php.ini"><span class="icon16 icomoon-icon-arrow-right-3"></span>PHP.ini Configuration</a></li>
+				<li><a href="index.php?module=ffmpeg"><span class="icon16 icomoon-icon-arrow-right-3"></span>FFMPEG Installer</a></li>
+            </ul>
+        </li>
+
+		<li class="menup " id="mn-5"><a href="#" id="mn-5cond"><span class="icon16 wpzoom-monitor"></span>Service SSH</a>
+            <ul class="sub "     id="mn-5-sub">
+                <li><a href="index.php?module=top_stats"><span class="icon16 icomoon-icon-arrow-right-3"></span>Top Stats</a></li>
+								<li><a href="index.php?module=cpuinfo"><span class="icon16 icomoon-icon-arrow-right-3"></span>CPU info</a></li>
+                <li><a href="index.php?module=BandwidthMonitor"><span class="icon16 icomoon-icon-arrow-right-3"></span>Bandwidth Monitor</a></li>
+				<li><a href="index.php?module=netstat_ports"><span class="icon16 icomoon-icon-arrow-right-3"></span>Netstat Port Usage</a></li>
+				<li><a href="index.php?module=network_configuration"><span class="icon16 icomoon-icon-arrow-right-3"></span>Network Configuration</a></li>
+				<li><a href="index.php?module=live_monitor"><span class="icon16 icomoon-icon-arrow-right-3"></span>Live Monitor</a></li>
+				<li><a href="index.php?module=process_list"><span class="icon16 icomoon-icon-arrow-right-3"></span>Process List</a></li>
+				<li><a href="index.php?module=sysstat_graph"><span class="icon16 icomoon-icon-arrow-right-3"></span>Sysstat Graph</a></li>
+				<li><a href="index.php?module=ssh_java_console"><span class="icon16 icomoon-icon-arrow-right-3"></span>SSH Java Console</a></li>
+				<li><a href="index.php?module=send_ssh"><span class="icon16 icomoon-icon-arrow-right-3"></span>Send Shell command</a></li>
+				<li><a href="index.php?module=ssh_screen"><span class="icon16 icomoon-icon-arrow-right-3"></span>Run & List Screen</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-6"><a href="#" id="mn-6cond"><span class="icon16 icomoon-icon-drawer-3"></span>Services Config</a>
+            <ul class="sub "     id="mn-6-sub">
+				<li><a href="index.php?module=file_editor&file=/etc/ssh/sshd_config"><span class="icon16 icomoon-icon-arrow-right-3"></span>SSH Configuration</a></li>
+				<li><a href="index.php?module=startup_services"><span class="icon16 icomoon-icon-arrow-right-3"></span>Startup Services</a></li>
+				<li><a href="index.php?module=chkconfig"><span class="icon16 icomoon-icon-arrow-right-3"></span>ChkConfig Manager</a></li>
+				<li><a href="index.php?module=servicesMonitor"><span class="icon16 icomoon-icon-arrow-right-3"></span>ServicesMonitor (init)</a></li>
+				<li><a href="index.php?module=systemd_servicesMonitor"><span class="icon16 icomoon-icon-arrow-right-3"></span>ServicesMonitor (systemd)</a></li>
+				<li><a href="index.php?module=monit_monitoring"><span class="icon16 icomoon-icon-arrow-right-3"></span>Monit Monitoring (cwppro)</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-7"><a href="#" id="mn-7cond"><span class="icon16 wpzoom-user-2"></span>User Accounts</a>
+            <ul class="sub "     id="mn-7-sub">
+                <li><a href="index.php?module=new_account"><span class="icon16 icomoon-icon-arrow-right-3"></span>New Account</a></li>
+				<li><a href="index.php?module=list_accounts"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Accounts</a></li>
+				<li><a href="index.php?module=fix_acc_perm"><span class="icon16 icomoon-icon-arrow-right-3"></span>Fix Permissions</a></li>
+				<li><a href="index.php?module=cwptocwp"><span class="icon16 icomoon-icon-arrow-right-3"></span>CWP->CWP Migration</a></li>
+				<li><a href="index.php?module=migration_cpanel"><span class="icon16 icomoon-icon-arrow-right-3"></span>cPanel Account Restore</a></li>
+				<li><a href="index.php?module=migration_cpanel_v2"><span class="icon16 icomoon-icon-arrow-right-3"></span>cPanel Server Migration</a></li>
+				<li><a href="index.php?module=user_quota"><span class="icon16 icomoon-icon-arrow-right-3"></span>User Quota</a></li>
+				<li><a href="index.php?module=themes_lang2"><span class="icon16 icomoon-icon-arrow-right-3"></span>Features,Themes,Languages</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-8"><a href="#" id="mn-8cond"><span class="icon16 icomoon-icon-earth"></span>Domains</a>
+            <ul class="sub "     id="mn-8-sub">
+				<li><a href="index.php?module=add_domain"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add Domain</a></li>
+				<li><a href="index.php?module=list_domains"><span class="icon16 icomoon-icon-arrow-right-3"></span>List Domains</a></li>
+				<li><a href="index.php?module=add_subdomain"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add SubDomain</a></li>
+				<li><a href="index.php?module=list_subdomains"><span class="icon16 icomoon-icon-arrow-right-3"></span>List SubDomains</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-9"><a href="#" id="mn-9cond"><span class="icon16 icomoon-icon-cube"></span>Packages</a>
+            <ul class="sub "     id="mn-9-sub">
+				<li><a href="index.php?module=packages"><span class="icon16 icomoon-icon-arrow-right-3"></span>Packages</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-10"><a href="#" id="mn-10cond"><span class="icon16 brocco-icon-database"></span>SQL Services</a>
+            <ul class="sub "     id="mn-10-sub">
+                <li><a href="index.php?module=autologin_pma" target="_blank"><span class="icon16 icomoon-icon-arrow-right-3"></span>phpMyAdmin</a></li>
+				<li><a href="index.php?module=mysql_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>MySQL Manager</a></li>
+				<li><a href="index.php?module=mysql_processes"><span class="icon16 icomoon-icon-arrow-right-3"></span>Show MySQL Processes</a></li>
+				<li><a href="index.php?module=file_editor&file=/etc/my.cnf"><span class="icon16 icomoon-icon-arrow-right-3"></span>MySQL Configuration</a></li>
+				<li><a href="index.php?module=postgresql"><span class="icon16 icomoon-icon-arrow-right-3"></span>PosgreSQL Installer</a></li>
+							<li><a href="index.php?module=mongodb_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>MongoDB Manager</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup  hasSub highlight-menu" id="mn-11"><a href="#" id="mn-11cond"><span class="icon16 icomoon-icon-mail-2"></span>Email</a>
+            <ul class="sub  show"   style="display:block;"   id="mn-11-sub">
+				<li><a href="index.php?module=mail_list"><span class="icon16 icomoon-icon-arrow-right-3"></span>Email Accounts</a></li>
+				<li><a href="index.php?module=mail_list_alias"><span class="icon16 icomoon-icon-arrow-right-3"></span>Email Aliases/Forwarders</a></li>
+				<li><a href="index.php?module=mail_autoreply"><span class="icon16 icomoon-icon-arrow-right-3"></span>Email AutoResponders</a></li>
+				<li><a href="index.php?module=mx_routing"><span class="icon16 icomoon-icon-arrow-right-3"></span>Mail Routing</a></li>
+				<li><a href="/roundcube" target="_blank"><span class="icon16 icomoon-icon-arrow-right-3"></span>Roundcube Webmail</a></li>
+				<li><a href="index.php?module=mail_queue"><span class="icon16 icomoon-icon-arrow-right-3"></span>Manage Mail Queue</a></li>
+				<li><a href="index.php?module=mail_explorer"><span class="icon16 icomoon-icon-arrow-right-3"></span>Mail Explorer</a></li>
+				<li><a href="index.php?module=postfix_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>MailServer Manager</a></li>
+				<li><a href="index.php?module=rdns_checker"><span class="icon16 icomoon-icon-arrow-right-3"></span>rDNS Checker</a></li>
+				<li><a href="index.php?module=dkim"><span class="icon16 icomoon-icon-arrow-right-3"></span>DKIM Manager</a></li>
+				<li><a href="index.php?module=spf"><span class="icon16 icomoon-icon-arrow-right-3"></span>SPF Manager</a></li>
+				<li><a href="index.php?module=antispam"><span class="icon16 icomoon-icon-arrow-right-3"></span>AntiSpam</a></li>
+				<li><a href="index.php?module=spamexperts"><span class="icon16 icomoon-icon-arrow-right-3"></span>SpamExperts</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-12"><a href="#" id="mn-12cond"><span class="icon16 iconic-icon-layers"></span>DNS Functions</a>
+            <ul class="sub "     id="mn-12-sub">
+                <li><a href="index.php?module=freedns"><span class="icon16 icomoon-icon-arrow-right-3"></span>FreeDNS Manager</a></li>
+
+				<li><a href="index.php?module=file_editor&file=/etc/named.conf"><span class="icon16 icomoon-icon-arrow-right-3"></span>Edit DNS config</a></li>
+				<li><a href="index.php?module=dns_add_zone"><span class="icon16 icomoon-icon-arrow-right-3"></span>Add DNS Zone</a></li>
+				<li><a href="index.php?module=dns_list_zones"><span class="icon16 icomoon-icon-arrow-right-3"></span>List DNS Zones</a></li>
+				<li><a href="index.php?module=nameservers"><span class="icon16 icomoon-icon-arrow-right-3"></span>Edit Nameservers IPs</a></li>
+				<li><a href="index.php?module=slave_dns_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>Slave DNS Manager</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-13"><a href="#" id="mn-13cond"><span class="icon16 wpzoom-shield"></span>Security</a>
+            <ul class="sub "     id="mn-13-sub">
+                <li><a href="index.php?module=csf"><span class="icon16 icomoon-icon-arrow-right-3"></span>CSF Firewall</a></li>
+                <li><a href="index.php?module=firewall"><span class="icon16 icomoon-icon-arrow-right-3"></span>Firewall Manager</a></li>
+				<li><a href="index.php?module=iptables_list"><span class="icon16 icomoon-icon-arrow-right-3"></span>List iptables rules</a></li>
+				<li><a href="index.php?module=mod_security"><span class="icon16 icomoon-icon-arrow-right-3"></span>Mod Security</a></li>
+				<li><a href="index.php?module=file_editor&file=/etc/security/limits.conf"><span class="icon16 icomoon-icon-arrow-right-3"></span>Security Limits</a></li>
+				<li><a href="index.php?module=cgroups"><span class="icon16 icomoon-icon-arrow-right-3"></span>Cgroups Resource Limits</a></li>
+				<li><a href="index.php?module=security_UserProcess"><span class="icon16 icomoon-icon-arrow-right-3"></span>Secure Processes</a></li>
+				<li><a href="index.php?module=ulimits"><span class="icon16 icomoon-icon-arrow-right-3"></span>Ulimit's per user</a></li>
+				<li><a href="index.php?module=file_editor&file=/etc/hosts.allow"><span class="icon16 icomoon-icon-arrow-right-3"></span>Hosts Allow</a></li>
+				<li><a href="index.php?module=file_editor&file=/etc/hosts.deny"><span class="icon16 icomoon-icon-arrow-right-3"></span>Hosts Deny</a></li>
+				<li><a href="index.php?module=chshell"><span class="icon16 icomoon-icon-arrow-right-3"></span>Shell Access</a></li>
+				<li><a href="index.php?module=user_monitoring"><span class="icon16 icomoon-icon-arrow-right-3"></span>User Monitoring</a></li>
+				<li><a href="index.php?module=ssl_generator"><span class="icon16 icomoon-icon-arrow-right-3"></span>SSL Generator</a></li>
+				<li><a href="index.php?module=security_maldet"><span class="icon16 icomoon-icon-arrow-right-3"></span>Security Maldet Scan</a></li>
+				<li><a href="index.php?module=security_rkhunter"><span class="icon16 icomoon-icon-arrow-right-3"></span>Security RKHunter Scan</a></li>
+				<li><a href="index.php?module=security_lynis"><span class="icon16 icomoon-icon-arrow-right-3"></span>Security Lynis Scan</a></li>
+				<li><a href="index.php?module=security_symlink_scan"><span class="icon16 icomoon-icon-arrow-right-3"></span>Security Symlink Scan</a></li>
+				<li><a href="index.php?module=login_security"><span class="icon16 icomoon-icon-arrow-right-3"></span>User Login Security</a></li>
+							</ul>
+        </li>
+		
+		<li class="menup " id="mn-14"><a href="#" id="mn-14cond"><span class="icon16 silk-icon-folder"></span>File Management</a>
+            <ul class="sub "    id="mn-14-sub">
+                <li><a target="_blank" href="fileManager2.php"><span class="icon16 icomoon-icon-arrow-right-3"></span>Advanced File Manager</a></li>
+				<li><a href="fileManager2.php?frame=3&fm_current_dir=/var/log/"><span class="icon16 icomoon-icon-arrow-right-3"></span>Server Logs</a></li>
+				<li><a href="index.php?module=viewerlogs"><span class="icon16 icomoon-icon-arrow-right-3"></span>CWP->Log Viewer</a></li>
+				<li><a href="index.php?module=log_rotate"><span class="icon16 icomoon-icon-arrow-right-3"></span>Logrotate Manager</a></li>
+				<li><a href="index.php?module=ftp_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>FTP Manager v2</a></li>
+				<li><a href="index.php?module=disk_quota"><span class="icon16 icomoon-icon-arrow-right-3"></span>Disk Quota Setup</a></li>
+                <li><a href="index.php?module=disk_details"><span class="icon16 icomoon-icon-arrow-right-3"></span>Disk Details</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-15"><a href="#" id="mn-15cond"><span class="icon16 wpzoom-cord"></span>Plugins</a>
+            <ul class="sub "     id="mn-15-sub">
+				<li><a href="index.php?module=shoutcast"><span class="icon16 icomoon-icon-arrow-right-3"></span>ShoutCast Manager</a></li>
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-16"><a href="#" id="mn-16cond"><span class="icon16 icomoon-icon-hammer"></span>Developer Menu</a>
+            <ul class="sub "     id="mn-16-sub">
+				<li><a href="index.php?module=example"><span class="icon16 icomoon-icon-arrow-right-3"></span>Example Module</a></li>
+				                                
+            </ul>
+        </li>
+		
+		<li class="menup " id="mn-17"><a href="#" id="mn-17cond"><span class="icon16 icomoon-icon-new"></span>Script Installers</a>
+            <ul class="sub "     id="mn-17-sub">
+				<li><a href="index.php?module=scripts_manager"><span class="icon16 icomoon-icon-arrow-right-3"></span>Scripts Manager</a></li>
+				            </ul>
+        </li>
+
+        <li class="menup " id="mn-18"><a href="#" id="mn-18cond"><span class="icon16 icomoon-icon-new"></span>Billing</a>
+            <ul class="sub "     id="mn-18-sub">
+				<li><a href="index.php?module=whmcs"><span class="icon16 icomoon-icon-arrow-right-3"></span>WHMCS</a></li>
+            </ul>
+        </li>
+
+        <li class="menup " id="mn-19"><a href="#" id="mn-19cond"><span class="icon16 icomoon-icon-new"></span>Graphs</a>
+            <ul class="sub "     id="mn-19-sub">
+				<li><a href="index.php?module=netdata"><span class="icon16 icomoon-icon-arrow-right-3"></span>Netdata</a></li>
+            </ul>
+        </li>
+
+    </ul>
+</div>
+
+<div><span class="icon16 icomoon-icon-users-2"></span>User Connected <input type="hidden" id="useronline" value="23"></div>
+<p><div class="col-md-12">
+               </div></p>
+
+<script>
+$(".menup").click(function (){
+        /*var i;
+        for(i=1;i < 7;i++){
+            sessionStorage.setItem("mn-"+i+"cond", 'notExpand');
+        }*/
+        var id=$(this).attr("id");
+        if($("#"+id+"cond").hasClass('expand')){
+            //sessionStorage.setItem(id+"cond", 'expand');
+            localStorage.setItem(id+"cond", "expand");
+        }else{
+            //sessionStorage.setItem(id+"cond", 'notExpand');
+            localStorage.setItem(id+"cond", "notExpand");
+        }
+    });
+ 
+function menuextend(){
+        var i;
+        for(i=1;i < 19;i++){
+            //var cond = sessionStorage.getItem("mn-"+i+"cond");
+            var cond = localStorage.getItem("mn-"+i+"cond");
+            if(cond==null){
+                localStorage.setItem("mn-"+i+"cond", "notExpand");
+            }
+            //alert("mn-"+i+"cond es igual a:"+cond);
+            if(cond=='expand'){
+                $('#mn-'+i+'cond').removeClass('notExpand');
+                $('#mn-'+i+'-sub').show();
+            }else if(cond=='notExpand'){
+                $('#mn-'+i+'cond').removeClass('expand');
+                $('#mn-'+i+'-sub').hide();
+            }
+        }
+    }
+//menuextend();
+
+$(document).ready(function(){
+	$("#myInput").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		console.log(value);
+		$('.menup').removeClass('highlight-menu');
+		$('.menup a').removeClass('notExpand');
+		$('.menup .sub').removeClass('show');
+		$('.menup .sub').hide();
+		
+		if(value != ''){		
+			$('.menup').addClass('highlight-menu');
+			$('.menup a').addClass('expand');
+			$('.menup ul li a').removeClass('expand');
+			
+			$('.menup .sub').addClass('show');
+			$('.menup .sub').show();
+		}
+				
+		$("#myList li ").filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
+	
+});
+
+function logonuser(st,user){
+    //return false;
+    if(st==0){
+        $("#userlg").html(user);
+        $("#userlogon").val(user);
+        $("#modal-user").modal('toggle');
+        return false;
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "loader_ajax.php?ajax=loggedin_users&acc=logon",
+            data: "user="+$("#userlogon").val(),
+            complete: function (datos) {
+                var user2=$("#userlogon").val();
+                var uscon=($("#useronline").val()-1);
+                $("#useronline2").html(uscon);
+                $("#div"+user2).hide('blind');
+                $("#modal-user").modal('toggle');
+            }
+        });
+        return false;
+    }
+}
+
+ </script>
+            </div><!-- End sidenav -->
+			</div><!-- End #sidebar -->
+
+        <!--Body content-->
+        <div id="content" class="page-content clearfix">
+            <div class="contentwrapper"><!--Content wrapper-->
+
+                <div class="heading">
+                <h3>mail_list</h3>               
+
+
+                    
+                    <ul class="breadcrumb">
+                        <li>You are here:</li>
+                        <li>
+                            <a href="index.php" class="tip" title="back to dashboard">
+                                <span class="icon16 icomoon-icon-screen-2"></span>
+                            </a> 
+                            <span class="divider">
+                                <span class="icon16 icomoon-icon-arrow-right-3"></span>
+                            </span>
+                        </li>
+                        <li class="active">mail_list</li>
+                    </ul>
+
+                </div><!-- End .heading-->
+
+                <!-- Build page from here: -->
+                <div class="row">
+                	
+					<script>
+					    function deleteNotification(code)
+                        {
+                            $.ajax('loader_ajax.php?ajax=notifications&action=delete&code=' + code);
+                        }
+					    $(document).ready(function(){
+										         
+					    });
+					</script>
+
+					
+<link rel="stylesheet" href="design/3rdparty/datatables/css/jquery.dataTables.min.css">
+<style>
+    .dataTables_filter input[aria-controls] {
+        width: 80% !important;
+        height: 32px;
+        padding: 6px 12px;
+        font-size: 13px;
+        line-height: 1.42857143;
+        color: #333333;
+        background-color: #ffffff;
+        background-image: none;
+        border: 1px solid #c4c4c4;
+        border-radius: 2px;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+
+    .dataTables_filter {
+        width: 70%;
+    }
+
+    .dataTables_filter label {
+        width: 100%;
+        float: left;
+    }
+
+    .dataTables_length select[aria-controls] {
+        padding: 5px 0 !important;
+    }
+
+    .marooner {
+        color: maroon;
+        font-size: 1.4rem;
+    }
+
+    .field_error {
+        color: red;
+        font-size: 1.4rem;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    .modal_close {
+        line-height: 35px;
+        margin-right: 15px;
+        font-size: 2.5rem;
+    }
+
+    .glyphicon1 {
+        cursor: pointer;
+        pointer-events: all;
+        float: left;
+        z-index: 99999999;
+        margin-right: 20px;
+        font-size: 1.7rem;
+    }
+
+    .glyphicon2 {
+        cursor: pointer;
+        pointer-events: all;
+        float: left;
+        z-index: 99999999;
+        margin-right: 53px;
+        font-size: 1.7rem;
+    }
+
+    .show_after_user {
+        display: none;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>List of MailBox Accounts</h3>
+        <p>View, add, update, suspend and delete mailbox account from postfix database</p>
+        <p>Mail location dir is: <span class="marooner"> /var/vmail/</span></p>
+    </div>
+
+    <div class="col-lg-12">
+                
+    </div>
+    <div class="col-lg-12">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>
+                    <span class="icon16 icomoon-icon-letter"></span>
+                    <span>MailBox List</span>
+                </h4>
+            </div>
+
+
+            <div class="panel-body" style="display: block;">
+                <button type="button" class="btn btn-success btn-sm pull-right" data-toggle="modal"
+                        data-target="#AddConfModal" style="margin-bottom: 14px; margin-left: 13px;">Add new domain mail
+                </button>
+
+                <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal"
+                        data-target="#subdomainModal" style="margin-bottom: 14px;">Add new subdomain mail
+                </button>
+
+                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: 100%; height: auto;">
+
+                    <table class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap"
+                           id="m_table_1">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>
+                                <input type="checkbox" value="" class="m-group-checkable check_all_box">
+                            </th>
+                            <th>Mail Box</th>
+                            <th>Mail Dir</th>
+                            <th>Domain</th>
+                            <th>Allocated (MB)</th>
+                            <th>Used(MB)</th>
+                            <th>Usage</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                                                </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>SN</th>
+                            <th>
+                                <input type="checkbox" value="" class="m-group-checkable check_all_box">
+                            </th>
+                            <th>Mail Box</th>
+                            <th>Mail Dir</th>
+                            <th>Domain</th>
+                            <th>Limit(MB)</th>
+                            <th>Used(MB)</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="row" style="text-align:center; margin-top: 10px;">
+                        <div class="col-lg-12">
+                            <button class="btn btn-brand m-btn btn-success show_selected_process_btn"
+                                    onclick="process_account(null, 'Activate', 2)">
+                                Activate selected records (<span class="num_selected"> </span>)
+                            </button>
+
+                            <button class="btn btn-brand m-btn btn-warning show_selected_process_btn"
+                                    onclick="process_account(null, 'Suspend', 2)">
+                                Suspend selected records (<span class="num_selected"> </span>)
+                            </button>
+
+                            <button class="btn btn-brand m-btn btn-danger show_selected_process_btn"
+                                    onclick="process_account(null, 'Delete', 2)">
+                                Delete selected records (<span class="num_selected"> </span>)
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- Modal -->
+<div id="AddConfModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Create a New Email Account (MailBox)</h4>
+                    <button type="button" class="close pull-right modal_close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="panel-body pt0 pb0">
+                    <form class="form-horizontal group-border stripped" action="" method="post">
+
+                        <p class="field_error"></p>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 col-md-3 control-label" for=""> Select User</label>
+                            <div class="col-md-9">
+
+                                <select class='form-control user_field'>
+                                    <option data-optype="" value="" data-username="">Select a user</option>
+                                    <option data-optype='domain' data-username='test' value='test'>test</option><option data-optype='domain' data-username='xyz' value='test2.com'>xyz</option>                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="show_after_user">
+
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-3 control-label" for="">Email Address</label>
+                                <div class="col-lg-10 col-md-9">
+                                    <div class="col-lg-6 col-md-6">
+                                        <input type="text" class="form-control tip" placeholder="Enter Email Address"
+                                               title="" name="new_mail_username" required pattern="[\w\.]+"
+                                               data-original-title="Enter Email Address Prefix">
+                                        <span class="help-block"><code>Create a NEW Email Address</code></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6" id="domain_dump">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-3 control-label" for="">Password:</label>
+                                <div class="col-lg-10 col-md-9">
+                                    <input type="password" class="form-control mpassword" name="new_mail_password"
+                                           value="U0XC5Mcf"
+                                           required>
+                                    <i class="glyphicon glyphicon-eye-open form-control-feedback glyphicon1"></i>
+                                    <i class="glyphicon glyphicon glyphicon-refresh form-control-feedback glyphicon2"
+                                       data-original-title="Re generate random passowrd"></i>
+                                    <span class="help-block"><code>Enter password</code></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-3 control-label" for="">Confirm Password:</label>
+                                <div class="col-lg-10 col-md-9">
+                                    <input type="password" class="form-control" name="confirm_new_mail_password"
+                                           required>
+                                    <span class="help-block"><code>Confirm password</code></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <input type="hidden" name="new_domain_mail_submit" value="yes">
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-brand m-btn btn-primary pull-right new_mail_submit_btn"
+                                    style="margin-right: 30px; margin-left:  10px;">Create Mail
+                            </button>
+                            <button type="button" class="btn btn-brand btn-default m-btn pull-right"
+                                    data-dismiss="modal">Close
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<div id="subdomainModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Create a New Subdomain Email Account (MailBox)</h4>
+                    <button type="button" class="close pull-right modal_close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="panel-body pt0 pb0">
+                    <form class="form-horizontal group-border stripped" action="" method="post">
+                        <p class="field_error"></p>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 col-md-3 control-label" for="">Select User</label>
+                            <div class="col-md-9">
+
+                                <select class='form-control user_field'>
+                                    <option data-optype="" value="" data-username="">Select a user</option>
+                                    <option data-optype='subdomain' data-username='test' value='test'>test</option><option data-optype='subdomain' data-username='xyz' value='test2.com'>xyz</option>                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="show_after_user">
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-3 control-label" for="">Email Address</label>
+                                <div class="col-lg-10 col-md-9">
+                                    <div class="col-lg-6 col-md-6">
+                                        <input type="text" class="form-control tip" placeholder="Enter Email Address"
+                                               title="" name="new_mail_username" required pattern="[\w\.]+"
+                                               data-original-title="Enter Email Address Prefix">
+                                        <span class="help-block"><code>Create a NEW Email Address</code></span>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6" id="subdomain_dump">
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-3 control-label" for="">Password:</label>
+                                <div class="col-lg-10 col-md-9">
+                                    <input type="password" class="form-control mpassword"
+                                           value="nt2kHBmy" name="new_mail_password" required>
+                                    <i class="glyphicon glyphicon-eye-open form-control-feedback glyphicon1"></i>
+                                    <i class="glyphicon glyphicon glyphicon-refresh form-control-feedback glyphicon2"></i>
+                                    <span class="help-block"><code>Enter password</code></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-3 control-label" for="">Confirm Password:</label>
+                                <div class="col-lg-10 col-md-9">
+                                    <input type="password" class="form-control" name="confirm_new_mail_password"
+                                           required>
+                                    <span class="help-block"><code>Confirm password</code></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <input type="hidden" name="new_subdomain_mail_submit" value="yes">
+
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-brand m-btn btn-primary pull-right new_mail_submit_btn"
+                                    style="margin-right: 30px; margin-left:  10px;">Create Subdomain Mail
+                            </button>
+                            <button type="button" class="btn btn-brand btn-default m-btn pull-right"
+                                    data-dismiss="modal">Close
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<div id="updatePasswordModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Password Change Form(MailBox)</h4>
+                    <button type="button" class="close pull-right modal_close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="panel-body pt0 pb0">
+                    <form class="form-horizontal group-border stripped" action="" id="email_update_form" method="post">
+                        <p class="field_error"></p>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 col-md-3 control-label" for="">Mail:</label>
+                            <div class="col-lg-10 col-md-9">
+                                <select name='new_mail_username' class='form-control'>
+                                    <option id="mail_to_update" value="" selected></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 col-md-3 control-label" for="">Password:</label>
+                            <div class="col-lg-10 col-md-9">
+                                <input type="password" class="form-control mpassword" name="new_mail_password"
+                                       id="update_passwd_field" required>
+                                <i class="glyphicon glyphicon-eye-open form-control-feedback glyphicon1"></i>
+                                <i class="glyphicon glyphicon glyphicon-refresh form-control-feedback glyphicon2"></i>
+                                <span class="help-block"><code>Password</code></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 col-md-3 control-label" for="">Confirm Password:</label>
+                            <div class="col-lg-10 col-md-9">
+                                <input type="password" class="form-control" name="confirm_new_mail_password" required>
+                                <span class="help-block"><code>Confirm password</code></span>
+                            </div>
+                        </div>
+                        <input type="hidden" name="update_mailbox_submit" value="yes">
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-brand m-btn btn-primary pull-right new_mail_submit_btn"
+                                    style="margin-right: 30px; margin-left:  10px;">Update MailBox
+                            </button>
+                            <button type="button" class="btn btn-brand btn-default m-btn pull-right"
+                                    data-dismiss="modal">Close
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<form id="f_account_form" method="post">
+    <input type="hidden" name="action" value="" id="action_to_make">
+    <input type="hidden" name="username" value="" id="mail_account_username">
+    <input type="hidden" name="account_form_submitted" value="yes">
+</form>
+
+
+<script type="text/javascript" src="design/3rdparty/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="design/plugins/ui/bootstrap-sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript">
+    var jq = $.noConflict();
+    var queryset_ids = [];
+    var checked_array = [];
+
+    jq(document).ready(function () {
+        jq('#m_table_1').DataTable();
+        jq('.show_selected_process_btn').hide();
+    });
+
+    jq('.single_check').change(function () {
+        if (jq(this).is(":checked")) {
+            checked_array.push(jq(this).data('value'));
+        } else {
+            checked_array = pop_array(checked_array, jq(this).data('value'))
+        }
+        post_checked();
+
+    });
+
+    function post_checked() {
+        jq('.num_selected').text(checked_array.length);
+        if (checked_array.length > 0) {
+            jq('.show_selected_process_btn').show();
+        } else {
+            jq('.show_selected_process_btn').hide();
+        }
+    }
+
+    jq('.check_all_box').change(function () {
+        //""" All selected '''"
+        if (jq(this).is(":checked")) {
+            jq('.single_check').not(this).prop('checked', this.checked);
+            jq('.check_all_box').prop('checked', this.checked);
+            checked_array = queryset_ids.slice();
+
+        } else {
+            checked_array = [];
+            jq('.single_check').not(this).prop('checked', false);
+            jq('.check_all_box').prop('checked', false);
+        }
+        post_checked();
+    });
+
+    function pop_array(array, val) {
+        var index = array.indexOf(val);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+        return array
+    }
+
+    function process_account(username, operation, number) {
+        var text = "";
+
+        if (operation === 'Delete') {
+            if (number === 1) {
+                text = "This mailbox (" + username + ") will be deleted"
+            } else {
+                text = checked_array.length + " mailboxes  will be deleted";
+            }
+        } else if (operation === "Suspend") {
+            if (number === 1) {
+                text = "This mailbox (" + username + ") will be suspended"
+            } else {
+                text = checked_array.length + " mailboxes  will be suspended";
+            }
+        } else {
+            if (number === 1) {
+                text = "This mailbox (" + username + ") will be activated"
+            } else {
+                text = checked_array.length + " mailboxes  will be activated";
+            }
+        }
+        swal({
+            title: operation,
+            text: text,
+            icon: "info",
+            buttons: true,
+            dangerMode: true
+        }).then(function (result) {
+            if (result) {
+                jq('#action_to_make').attr('value', operation.toLowerCase());
+                if (number === 1) {
+                    jq('#mail_account_username').attr('value', username);
+                } else {
+                    jq('#mail_account_username').attr('value', checked_array.join(','));
+                }
+                jq('#f_account_form').submit();
+            }
+        });
+    }
+
+    //password validation
+    jq('.new_mail_submit_btn').click(function (evt) {
+        evt.preventDefault();
+        var pform = jq(this).parents('form');
+        var conf_pass = pform.find('input[name="confirm_new_mail_password"]').val();
+        var pass = pform.find('input[name="new_mail_password"]').val();
+        var username = pform.find('input[name="new_mail_username"]').val();
+
+        if (username === "" || conf_pass === "" || pass === "") {
+            pform.find('.field_error').text('All fields are required required');
+        } else if (conf_pass !== pass) {
+            pform.find('.field_error').text('Password and Password confirmation do not match');
+        } else {
+            pform.submit();
+        }
+    });
+
+    function preload_modal(email) {
+        jq('#mail_to_update').attr('value', email);
+        jq('#mail_to_update').text(email);
+        var randS = randomString(8);
+        jq('#update_passwd_field').attr('value', randS);
+    }
+
+    jq('.glyphicon1').on('click', function () {
+        jq(this).toggleClass('glyphicon-eye-close').toggleClass('glyphicon-eye-open');
+        var input = jq(this).parents('.form-group').find('input.mpassword');
+        if (input.attr("type") == "password") {
+            input.prop("type", "text");
+        } else {
+            input.prop("type", "password");
+        }
+    });
+
+    jq('.glyphicon2').click(function () {
+        var randS = randomString(8);
+        jq(this).parents('.form-group').find('input.mpassword').prop('value', randS);
+    });
+
+    function randomString(length) {
+        var result = '';
+        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+        return result;
+    }
+
+    jq('.user_field').change(function () {
+        var username = jq(this).find(":selected").data('username');
+        var optype = jq(this).find(":selected").data('optype');
+        var domain = jq(this).val();
+        var pform = jq(this).parents('form');
+        pform.find('.show_after_user').hide();
+        if (username !== "") {
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "loader_ajax.php?ajax=add_mailbox",
+                data: {
+                    'username': username,
+                    'optype': optype,
+                    'user_domain': domain
+
+                },
+                success: function (json) {
+                    pform.find('.show_after_user').show();
+                    var output = "<select name='new_mail_domain' class='form-control'>";
+                    for (i = 0; i < json.length; i++) {
+                        var domain_n = json[i];
+                        output += '<option value="' + domain_n + '">@' + domain_n + '</option>';
+                    }
+                    output += "</select>";
+                    if (optype == 'domain') {
+                        jq('#domain_dump').html(output);
+                    } else {
+                        jq('#subdomain_dump').html(output);
+                    }
+
+                },
+                // handle a non-successful response
+                error: function (xhr, errmsg, err) {
+                },
+                beforeSend: function () {
+                    if (optype == 'domain') {
+                        jq('#domain_dump').html('');
+                    } else {
+                        jq('#subdomain_dump').html('');
+                    }
+                },
+                complete: function () {
+
+                }
+            });
+        } else {
+            if (optype == 'domain') {
+                jq('#domain_dump').html('');
+            } else {
+                jq('#subdomain_dump').html('');
+            }
+        }
+    });
+
+
+</script>
+	
+
+                </div><!-- End .row -->
+                
+            </div><!-- End contentwrapper -->
+        </div><!-- End #content -->
+
+        <!-- Session logout modal for user panel -->
+        <div class="modal fade" id="modal-user" tabindex="-1" role="dialog" aria-labelledby="editforwarddomain" aria-hidden="true">
+		    <div class="modal-dialog modal-sm">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h4 class="modal-title" id="">Close session for user</h4>
+		            </div>
+		            <div class="modal-body" id="contentmodaludp">
+		                <h4>Are you sure you want to log out this user?</h4>
+		                <h3 id="userlg"></h3>
+		                <input type="hidden" value="" id="userlogon">
+		            </div>
+
+		            <div class="modal-footer">
+		                <div class="col-md-12 col-sm-12 col-xs-12">
+		                    <button type="button" id="btn-updatemodal" class="btn btn-primary" onclick="return logonuser(1,'')">Yes</button>
+		                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<!-- End Session logout modal for user panel -->
+
+        <div id="footer" class="clearfix sidebar-page right-sidebar-page col-lg-11">
+        <!-- Start #footer  -->
+	        <div class="col-lg-6">
+		        <p class="pull-left">
+		            Copyrights &copy; 2019 <a href="http://centos-webpanel.com/" class="color-blue strong" target="_blank">CWP Control WebPanel</a>. All rights reserved.
+		        </p>
+	    	</div>
+	    	<div class="col-lg-5">
+		        <p class="pull-right">
+		        	<button type="button" class="btn btn-success btn-block mr5 mb10">You are running CWPpro</button>		        </p>
+	    	</div>
+    	</div>
+    <!-- End #footer  -->
+    
+</div>
+<!-- / #wrapper -->
+<!-- Back to top -->
+<div id="back-to-top"><a href="#">Back to Top</a>
+</div>
+<!-- Javascripts -->
+<!-- Load pace first -->
+<!-- <script src="design/plugins/core/pace/pace.min.js"></script> -->
+<!-- Important javascript libs(put in all pages) -->
+<script src="design/js/libs/jquery-2.1.1.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="design/js/libs/jquery-2.1.1.min.js">\x3C/script>')
+</script>
+<script src="design/js/libs/jquery-ui.js"></script>
+<script>
+    window.jQuery || document.write('<script src="design/js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')
+</script>
+<script src="design/js/libs/jquery-migrate-1.2.1.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="design/js/libs/jquery-migrate-1.2.1.min.js">\x3C/script>')
+</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="design/js/libs/excanvas.min.js"></script>
+<script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<script type="text/javascript" src="design/js/libs/respond.min.js"></script>
+<![endif]-->
+<!-- Bootstrap plugins -->
+<script src="design/js/bootstrap/bootstrap.js"></script>
+<!-- Core plugins ( not remove ) -->
+<script src="design/js/libs/modernizr.custom.js"></script>
+<!-- Handle responsive view functions -->
+<script src="design/js/jRespond.min.js"></script>
+<!-- Custom scroll for sidebars,tables and etc. -->
+<script src="design/plugins/core/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="design/plugins/core/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+<!-- Remove click delay in touch -->
+<script src="design/plugins/core/fastclick/fastclick.js"></script>
+<!-- Increase jquery animation speed -->
+<script src="design/plugins/core/velocity/jquery.velocity.min.js"></script>
+<!-- Quick search plugin (fast search for many widgets) -->
+<script src="design/plugins/core/quicksearch/jquery.quicksearch.js"></script>
+<!-- Bootbox fast bootstrap modals -->
+<script src="design/plugins/ui/bootbox/bootbox.js"></script>
+<!-- Other plugins ( load only nessesary plugins for every page) -->
+<script src="design/plugins/charts/sparklines/jquery.sparkline.js"></script>
+<script src="design/js/jquery.supr.js"></script>
+<script src="design/js/main.js"></script>
+<script src="design/js/pages/blank.js"></script>
+
+<script src="design/js/bootstrap-notify.js"></script>
+<script src="design/plugins/ui/notify/jquery.gritter.js"></script>
+</body>
+</html>

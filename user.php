@@ -433,6 +433,53 @@ class user extends dbh
 		}
 	}
 
+	// public function paymentUserStatus($message)
+ //  	{
+ //  		if ($message == 0) {
+ //  			return '<div class="badge badge-warning">Pending</div>';
+ //  		}
+ //  		elseif ($message == 1) {
+ //  			return '<div class ="badge badge-success">Approved</div>';
+ //  		}
+ //  		else
+ //  		{
+ //  			return '<div class ="badge badge-red">Rejected</div>';
+ //  		}
+ //  	}
+
+	public function getAllRevenueHistory()
+  	{
+  		$stmt = "SELECT * FROM payment";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+  	}
+
+  	public function getemail($id)
+	{
+		$stmt = "SELECT email FROM users where id = '$id'";
+		$result= $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows > 0) {
+			$data = $result->fetch_assoc();
+			$string = implode('|',$data);
+			return $string;
+		}
+		else{
+
+		}
+	}
+
+
 	// ###################  Payer/users registration ##########################
 	public function insertPayer($fullname,$email,$phone,$identificationNo,$identificationType,$secret)
 	{
@@ -522,18 +569,18 @@ class user extends dbh
 	}
 
 	public function month(){
-		echo '<option>January</option>
-			 <option>February</option>
-			 <option>March</option>
-			 <option>April</option>
-			 <option>May</option>
-			 <option>June</option>
-			 <option>July</option>
-			 <option>August</option>
-			 <option>September</option>
-			 <option>October</option>
-			 <option>November</option>
-			 <option>December</option>
+		echo '<option value="January">January</option>
+			 <option value="February">February</option>
+			 <option value="March">March</option>
+			 <option value="April">April</option>
+			 <option value="May">May</option>
+			 <option value="June">June</option>
+			 <option value="July">July</option>
+			 <option value="August">August</option>
+			 <option value="September">September</option>
+			 <option value="October">October</option>
+			 <option value="November">November</option>
+			 <option value="December">December</option>
 				';
 	}
 	public function payRevenue($amount,$userID,$month)
@@ -559,17 +606,119 @@ class user extends dbh
   	}
   	public function checkPayment($month,$userID)
   	{
-  		$stmt = "SELECT * FROM payment where user_id = $userID";
+  		$stmt = "SELECT * FROM payment where user_id = $userID and month_paid = '$month'";
 		$result = $this->connect()->query($stmt);
-		$row = $result->fetch_assoc();
-		if (trim($row['month_paid']) == trim($month)) {
-			return 'error';
+		$numberrows = $result->num_rows;
+		// $row = $result->fetch_assoc();
+		if ($numberrows > 0) {
+			
+			return 'error';	
 		}
 		else
 		{
 			return 'success';
 		}
+		
   	}
+
+  	public function getRevenueHistory($userID)
+  	{
+  		$stmt = "SELECT * FROM payment where user_id = $userID";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+  	}
+
+  	public function revenueReport($month,$type)
+  	{
+  		$stmt = "SELECT * FROM payment where month_paid = '$month' and verification = '$type'";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			while ($rows= $result->fetch_assoc()) {
+				$row_date [] = $rows;
+		}
+		 return $row_date;
+			
+		}
+		else{
+			return '';
+		}
+  	}
+
+  	public function checkApprovedPayment($userID)
+  	{
+  		$stmt = "SELECT * FROM payment where user_id = '$userID' and verification = 1";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			$sum =0;
+			while ($rows= $result->fetch_assoc()) {
+				$sum = $sum+ $rows['amount'];
+		}
+		 return $sum;
+			
+		}
+		else{
+			return '0';
+		}
+  	}
+
+  	public function checkUnApprovedPayment($userID)
+  	{
+  		$stmt = "SELECT * FROM payment where user_id = '$userID' AND verification = 0";
+		$result = $this->connect()->query($stmt);
+		$numberrows = $result->num_rows;
+		if ($numberrows >0) {
+			$sum =0;
+			while ($rows= $result->fetch_assoc()) {
+				$sum = $sum+ $rows['amount'];
+		}
+		 return $sum;
+			
+		}
+		else{
+			return '0';
+		}
+  	}
+
+  	public function paymentStatus($message)
+  	{
+  		if ($message == 0) {
+  			return '<div class="badge badge-warning">Pending</div>';
+  		}
+  		elseif ($message == 1) {
+  			return '<div class ="badge badge-success">Approved</div>';
+  		}
+  		else
+  		{
+  			return '<div class ="badge badge-red">Rejected</div>';
+  		}
+  	}
+
+  	public function updatePayment($id){
+
+	 $stmt = "UPDATE payment set verification = '1' where id = '$id'";
+	 $result = $this->connect()->query($stmt);
+	 if($result)
+	 {
+	 	echo '<div class ="alert alert-success"> <strong> payment Verified Successfully!</strong> </div>';
+	 }
+	 else{
+	 	echo '<div class ="alert alert-danger"> <strong> payment Fail!</strong> </div>';
+	 }
+	 	
+
+	}
 
 	  function previousYear($vardate,$added)
 	{
@@ -580,6 +729,9 @@ class user extends dbh
 	$day= $date->format("Y-m-d");
 	return $day;    
 	}
+
+
+
 
 // ###################
 

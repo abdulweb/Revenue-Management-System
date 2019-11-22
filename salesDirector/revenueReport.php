@@ -9,6 +9,18 @@ include('header.php');
         visibility: hidden;
     }
 </style>
+<script language="javascript" type="text/javascript">
+var popUpWin=0;
+function popUpWindow(URLStr, left, top, width, height)
+{
+ if(popUpWin)
+{
+if(!popUpWin.closed) popUpWin.close();
+}
+popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+510+',height='+430+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
+}
+
+</script>
 <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-wrapper">
@@ -31,14 +43,29 @@ include('header.php');
                 <!-- DOM - jQuery events table -->
                 <section id="dom">
                     <div class="row">
+                    <div class="col-md-12" style="margin-bottom: 5px">
+                    <h6 class="text-danger">Please filter by month and report type</h6>
+                            <form action="" method="post">
+                                <select class="form-control " name="month" style="margin-bottom: 10px" required>
+                                    <option value="" >Select Month</option>
+                                    <?php
+                                        $object->month();
+                                    ?>
+                                </select> <br>
+                                <select class="form-control" name="type" required>
+                                    <option value="">Select Report Type</option>
+                                    <option value="1">Paid Report</option>
+                                    <option value="0">UnPaid Report</option>
+                                </select>
+                                <button type="submit" name="fetch_report" class="btn btn-info pull-right " style="margin: 5px;"><i class="la la-arrow-down"> </i> fetch</button>
+                            </form>
+                        </div>
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">                                    
                                     <h4 class="card-title">
-                                        <a href="addUser.php" class="btn btn-primary "><i class="la la-book"></i>Generate Report</a>
-                                        <a href="addUser.php" class="btn btn-success "><i class="la la-book"></i>Paid Report</a>
-                                        <a href="addUser.php" class="btn btn-info "><i class="la la-book"></i>unpaid Report</a>
                                     </h4>
+                                   <!--  <a href="" class="btn btn-success pull-right" style="margin-right: 36px;" id="btn"> <i class="la la-print"> </i> Print</a> -->
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
@@ -46,56 +73,47 @@ include('header.php');
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="card-content collapse show">
-                                    <div class="card-body card-dashboard dataTables_wrapper dt-bootstrap">                                        
-                                        <?php
-                                            if (isset($_POST['submit'])) 
-                                            {
-                                                $id = $_POST['id'];
-                                                // $userID = $_POST['userID'];
-                                                $object->updatePayment($id);
-                                            }
-                                            
-                                        ?>
-
-                                        <div class="table-responsive">
+                                <div class="card-content collapse show" id="printarea">
+                                    <div class="card-body card-dashboard dataTables_wrapper dt-bootstrap">   
+                                        <div class="table-responsive" >
                                             <table class="table table-striped table-bordered dom-jQuery-events">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Email</th>
                                                         <th>Payment Status</th>
-                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $results = $object->getAllRevenueHistory();
+                                                    if (isset($_POST['fetch_report'])) {
 
-                                                    if(!empty($results)){
-                                                    $i=1;$sum = 0;
-                                                    foreach($results as $value) { 
-                                                    ?>
+                                                        $month = $_POST['month'];
+                                                        $type = $_POST['type'];
+                                                        $results = $object->revenueReport($month,$type);
+                                                        if(!empty($results)){
+                                                        $i=1;
+                                                        ?><a href="javascript:void(0);"  onClick="popUpWindow('http://localhost/rms/salesDirector/print.php?print=<?php echo $month.','.$type;?>');" class="btn btn-success pull-right" style="margin-right: 36px; margin-top:-5px;" > <i class="la la-print"> </i> Print</a><?php
+                                                        foreach($results as $value) { 
+                                                        ?>
+
                                                     <tr>
                                                         <td><?=$i?></td>
                                                         <td id="fullname<?php echo $value['id'] ?>"><?=$object->getemail($value['user_id'])?></td>
                                                         <td id="email<?php echo $value['id'] ?>"><?=$object->paymentStatus($value['verification'])?></td>
-                                                        <th>
-                                                        <form method="post" action="">
-                                                            <input type="hidden" name="id" value="<?=$value['id']?>">
-                                                            <button onclick="return confirm('Aprroved <?=$value['id']?>')" class="btn btn-success" type="submit" name="submit"> <i class="la la-check"></i> Approve</button>
-                                                        </form>
-                                                        
-                                                        <!-- <a href="#" class="btn btn-success " data-toggle="modal" data-target="#large"  id="">Approve</a> -->
-                                                        </th>
                                                         
                                                     </tr>
 
-                                                <?php $i++;$sum = $sum+$value['amount']; }
+                                                <?php $i++; }
                                                 }
                                                 else{
 
-                                                    } ?>
+                                                    }
+                                                }
+                                                else{
+
+                                                 
+                                                }?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -170,15 +188,10 @@ include('header.php');
 });
 </script>
 <script> 
-        function print() { 
-            var divContents = document.getElementById("GFG").innerHTML; 
-            var a = window.open('', '', 'height=500, width=500'); 
-            a.document.write('<html>'); 
-            a.document.write('<body > <h1>Div contents are <br>'); 
-            a.document.write(divContents); 
-            a.document.write('</body></html>'); 
-            a.document.close(); 
-            a.print(); 
-        } 
+        $("#btn").click(function () {
+    //Hide all other elements other than printarea.
+    $("#printarea").show();
+    window.print();
+});
       
 </script>
